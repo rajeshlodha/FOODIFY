@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOODIFY - Order Food</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.png" alt="logo">
+<span>Foodify</span>
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="menu.html" class="restaurant-card">
+<a href="index.html#categories">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+
+<section class="hero">
+<h1>Discover Delicious Food Near You</h1>
+<p>Order from your favorite restaurants and get it delivered fast.</p>
+
+<div class="search-box">
+    <div class="search-bar">
+        <input type="text" placeholder="Search for food or restaurants...">
+        <button>Search</button>
+    </div>
+</div>
+
+<div class="categories-row">
+<span>🍕 Pizza</span>
+<span>🍔 Burger</span>
+<span>🍜 Chinese</span>
+<span>🍗 Chicken</span>
+<span>🍰 Desserts</span>
+</div>
+</section>
+
+<section class="restaurants">
+<h2>Popular Restaurants</h2>
+<div class="restaurant-grid">
+<div class="restaurant-card">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800">
+<div class="restaurant-info">
+<h3>Burger Palace</h3>
+<p>⭐ 4.4 • 25 min</p>
+<p class="cuisine">Burgers • Fast Food</p>
+</div>
+</div>
+<div class="restaurant-card">
+<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800">
+<div class="restaurant-info">
+<h3>Pizza Heaven</h3>
+<p>⭐ 4.6 • 30 min</p>
+<p class="cuisine">Pizza • Italian</p>
+</div>
+</div>
+<div class="restaurant-card">
+<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800">
+<div class="restaurant-info">
+<h3>Spice Garden</h3>
+<p>⭐ 4.5 • 35 min</p>
+<p class="cuisine">Indian • Curry</p>
+</div>
+</div>
+<div class="restaurant-card">
+<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800">
+<div class="restaurant-info">
+<h3>Pasta House</h3>
+<p>⭐ 4.3 • 28 min</p>
+<p class="cuisine">Italian • Pasta</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="categories" class="categories">
+<h2>Categories</h2>
+<div class="category-list">
+<button onclick="filterCategory('all')">All</button>
+<button onclick="filterCategory('pizza')">Pizza</button>
+<button onclick="filterCategory('burger')">Burger</button>
+<button onclick="filterCategory('dessert')">Dessert</button>
+</div>
+</section>
+
+<section id="menu" class="menu">
+<h2>Popular Items</h2>
+<div class="food-grid" id="foodGrid"></div>
+</section>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+</div>
+
+<button onclick="clearCart()">Clear Cart</button>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
