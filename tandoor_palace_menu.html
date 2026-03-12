@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tandoor Palace Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Tandoor Palace - Mughlai</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/18/4e/dc/184edc3e0974acb9d8eb28127070631b.jpg" alt="Nihari">
+<div class="food-info">
+<h3>Nihari</h3>
+<p>⭐ 4.8 • Slow cooked meat</p>
+<div class="food-bottom">
+<span class="price">₹399</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/6d/27/0c/6d270c5961d575b31e79488869e9f363.jpg" alt="Tandoori Chicken">
+<div class="food-info">
+<h3>Tandoori Chicken (1 kg)</h3>
+<p>⭐ 4.7 • Marinated & grilled</p>
+<div class="food-bottom">
+<span class="price">₹599</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/a0/ba/5c/a0ba5c215ead289dd136a6f17b0a51a6.jpg" alt="Biryani">
+<div class="food-info">
+<h3>Mughlai Biryani</h3>
+<p>⭐ 4.9 • Royal rice dish</p>
+<div class="food-bottom">
+<span class="price">₹449</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/c3/e7/15/c3e7159d14da55878b6d189f8579bd3f.jpg" alt="Korma">
+<div class="food-info">
+<h3>Chicken Korma</h3>
+<p>⭐ 4.6 • Creamy curry</p>
+<div class="food-bottom">
+<span class="price">₹349</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/16/97/f2/1697f230003869651b46ac62c1cf0f0b.jpg" alt="Seekh Kebab">
+<div class="food-info">
+<h3>Seekh Kebab (4 pcs)</h3>
+<p>⭐ 4.7 • Minced meat skewer</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Nihari", price: 399, category: "chicken", img: "https://images.unsplash.com/photo-1606491956931-64aa1ce8d457?w=800" },
+  { name: "Tandoori Chicken", price: 599, category: "chicken", img: "https://images.unsplash.com/photo-1565617566595-36497800e48c?w=800" },
+  { name: "Mughlai Biryani", price: 449, category: "biryani", img: "https://images.unsplash.com/photo-1603915283917-c0d76ed7e7a3?w=800" },
+  { name: "Chicken Korma", price: 349, category: "chicken", img: "https://images.pexels.com/photos/5732471/pexels-photo-5732471.jpeg" },
+  { name: "Seekh Kebab", price: 249, category: "chicken", img: "https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

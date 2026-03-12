@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>McDonald's Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>McDonald's Menu</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://images.pexels.com/photos/30500743/pexels-photo-30500743.jpeg" alt="Big Mac">
+<div class="food-info">
+<h3>Big Mac</h3>
+<p>⭐ 4.6 • Classic burger</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://images.pexels.com/photos/115740/pexels-photo-115740.jpeg" alt="Crispy Fries">
+<div class="food-info">
+<h3>Crispy Fries</h3>
+<p>⭐ 4.5 • Golden & crispy</p>
+<div class="food-bottom">
+<span class="price">₹79</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://images.pexels.com/photos/11710530/pexels-photo-11710530.jpeg" alt="Chicken McNuggets">
+<div class="food-info">
+<h3>Chicken McNuggets</h3>
+<p>⭐ 4.4 • 6 piece combo</p>
+<div class="food-bottom">
+<span class="price">₹149</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://imgs.search.brave.com/pgDFbux-RRL3lSQckW_2e1GCs9Is97oG9TZJ5JtOfQo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZXRy/by5jby51ay93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNy9T/RUNfODY2OTc2NTMu/anBnP3F1YWxpdHk9/OTAmc3RyaXA9YWxs/Jnc9NjQ2" alt="McSpicy Burger">
+<div class="food-info">
+<h3>McSpicy Burger</h3>
+<p>⭐ 4.5 • Spicy delight</p>
+<div class="food-bottom">
+<span class="price">₹199</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://imgs.search.brave.com/FHa5wZPNrzP5kdNd5x-cOYOJlagpAqvIxgLOWuUj7Zw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bmljZXBuZy5jb20v/cG5nL2RldGFpbC8y/MjEtMjIxNDE5NF9z/b2Z0LWRyaW5rcy1t/Y2RvbmFsZHMtY29r/ZS5wbmc" alt="Coca Cola">
+<div class="food-info">
+<h3>Coca Cola</h3>
+<p>⭐ 4.7 • Cold drink</p>
+<div class="food-bottom">
+<span class="price">₹49</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Big Mac", price: 249, category: "burger", img: "https://images.pexels.com/photos/30500743/pexels-photo-30500743.jpeg" },
+  { name: "Crispy Fries", price: 79, category: "burger", img: "https://images.pexels.com/photos/115740/pexels-photo-115740.jpeg" },
+  { name: "Chicken McNuggets", price: 149, category: "burger", img: "https://images.pexels.com/photos/11710530/pexels-photo-11710530.jpeg" },
+  { name: "McSpicy Burger", price: 199, category: "burger", img: "https://imgs.search.brave.com/pgDFbux-RRL3lSQckW_2e1GCs9Is97oG9TZJ5JtOfQo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZXRy/by5jby51ay93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNy9T/RUNfODY2OTc2NTMu/anBnP3F1YWxpdHk9/OTAmc3RyaXA9YWxs/Jnc9NjQ2" },
+  { name: "Coca Cola", price: 49, category: "beverage", img: "https://imgs.search.brave.com/FHa5wZPNrzP5kdNd5x-cOYOJlagpAqvIxgLOWuUj7Zw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bmljZXBuZy5jb20v/cG5nL2RldGFpbC8y/MjEtMjIxNDE5NF9z/b2Z0LWRyaW5rcy1t/Y2RvbmFsZHMtY29r/ZS5wbmc" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

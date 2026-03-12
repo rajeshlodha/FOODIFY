@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Starbucks Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Starbucks - Coffee & Beverages</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg" alt="Caffe Latte">
+<div class="food-info">
+<h3>Caffe Latte</h3>
+<p>⭐ 4.7 • Espresso & milk</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/4d/e4/0c/4de40c8bbd7ca5c9a76587faf386d444.jpg" alt="Cappuccino">
+<div class="food-info">
+<h3>Cappuccino</h3>
+<p>⭐ 4.6 • Bold & creamy</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/4d/e0/68/4de068124212961d6481e6c631774053.jpg" alt="Iced Mocha">
+<div class="food-info">
+<h3>Iced Mocha</h3>
+<p>⭐ 4.8 • Chocolate & coffee</p>
+<div class="food-bottom">
+<span class="price">₹299</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/92/ab/c7/92abc79ba42ba38955d1623c0f0c39f0.jpg" alt="Croissant">
+<div class="food-info">
+<h3>Butter Croissant</h3>
+<p>⭐ 4.5 • Fresh & flaky</p>
+<div class="food-bottom">
+<span class="price">₹129</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/9f/19/41/9f19411347b2a4a41a56fd8c23349500.jpg" alt="Green Tea">
+<div class="food-info">
+<h3>Matcha Green Tea</h3>
+<p>⭐ 4.6 • Fresh & healthy</p>
+<div class="food-bottom">
+<span class="price">₹189</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Caffe Latte", price: 249, category: "beverage", img: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg" },
+  { name: "Cappuccino", price: 249, category: "beverage", img: "https://images.pexels.com/photos/9507962/pexels-photo-9507962.jpeg" },
+  { name: "Iced Mocha", price: 299, category: "beverage", img: "https://images.pexels.com/photos/11316762/pexels-photo-11316762.jpeg" },
+  { name: "Croissant", price: 129, category: "dessert", img: "https://images.pexels.com/photos/239588/pexels-photo-239588.jpeg" },
+  { name: "Matcha Tea", price: 189, category: "beverage", img: "https://images.pexels.com/photos/11304937/pexels-photo-11304937.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

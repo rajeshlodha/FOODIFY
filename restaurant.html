@@ -5,85 +5,130 @@
 <title>Restaurants</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div id="notification" class="notification"></div>
 
 <header class="navbar">
-
+<div class="nav-left">
 <div class="logo">
-<img src="images/logo.png">
-<span>Foodify</span>
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
 </div>
 
 <nav class="nav-links">
 <a href="index.html">Home</a>
-<a href="#">Restaurants</a>
-<a href="#">Cart</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
 </nav>
-
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
 </header>
-
-
 <section class="restaurants">
-
 <h2>Popular Restaurants</h2>
-
 <div class="restaurant-grid">
-
-<a href="menu.html" class="restaurant-card">
-
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
-
+<a href="mcdonalds_menu.html" class="restaurant-card">
+<img src="https://i.pinimg.com/1200x/55/64/8a/55648a45dfcccebeb534d18c2078811d.jpg" >
 <div class="restaurant-info">
-<h3>Burger Palace</h3>
+<h3>McDonald's</h3>
 <p>⭐ 4.4 • 25 min</p>
 <p class="cuisine">Burgers • Fast Food</p>
 </div>
-
 </a>
 
-
-<a href="menu.html" class="restaurant-card">
-
-<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e">
-
+<a href="martinoz_menu.html" class="restaurant-card">
+<img src="https://imgs.search.brave.com/kmEdhfEnANCfo7ePQVgPFaQ1ojkEz9qCvbevlTFn5a8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dm9pY2VvZnNhcC5v/cmcvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjYvMDEvZmlsZTAt/NTcuanBn" alt="Martinoz pizza restaurant">
 <div class="restaurant-info">
-<h3>Pizza Heaven</h3>
+<h3>Martinoz</h3>
 <p>⭐ 4.6 • 30 min</p>
 <p class="cuisine">Pizza • Italian</p>
 </div>
-
 </a>
 
-
-<a href="menu.html" class="restaurant-card">
-
-<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
-
+<a href="farzi_cafe_menu.html" class="restaurant-card">
+<img src="https://imgs.search.brave.com/fQPKs9hSJjJe-ltk2Ol0kfNQqXDbvzq4z7q6AOeID1s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9iLnpt/dGNkbi5jb20vZGF0/YS9waWN0dXJlcy8w/LzE4NzIyNDgwLzc4/MDhjZDU3NzRiYjM4/Y2Q5ZjdlMmFhZDhi/MjdlNDQ5LmpwZw" alt="Farzi Cafe Indian restaurant">
 <div class="restaurant-info">
-<h3>Spice Garden</h3>
+<h3>Farzi Cafe</h3>
 <p>⭐ 4.5 • 35 min</p>
-<p class="cuisine">Indian • Curry</p>
+<p class="cuisine">Indian • North indian</p>
 </div>
-
 </a>
 
-
-<a href="menu.html" class="restaurant-card">
-
-<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38">
-
+<a href="starbucks_menu.html" class="restaurant-card">
+<img src="https://imgs.search.brave.com/EcsdhOuPf2M1J2U0Xx4HmM4tF9psKLytbnhRTMkIe1Y/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE4/MjQ4MDg3OS9waG90/by9vdXRkb29yLXNl/YXRpbmctYXJlYS1v/Zi1hLXN0YXJidWNr/cy1jb2ZmZWUtc2hv/cC1vbi1hLWJ1c3kt/c3RyZWV0LXdpdGgt/dmlicmFudC1zdG9y/ZWZyb250LmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz1XdUJ6/S251c2hTVDZ5d0Ew/cVp1UjRoS3haQng3/ZU9fUC1JWFZXNF81/R2JVPQ" alt="Starbucks coffee shop">
 <div class="restaurant-info">
-<h3>Pasta House</h3>
+<h3>Starbucks</h3>
 <p>⭐ 4.3 • 28 min</p>
-<p class="cuisine">Italian • Pasta</p>
+<p class="cuisine">Coffee • Beverages </p>
 </div>
-
 </a>
 
+<a href="indigo_cafe_menu.html" class="restaurant-card">
+<img src="https://images.pexels.com/photos/62097/pexels-photo-62097.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Indigo Cafe Indian restaurant">
+<div class="restaurant-info">
+<h3>Indigo Cafe</h3>
+<p>⭐ 4.7 • 22 min</p>
+<p class="cuisine">Indian • North Indian</p>
 </div>
+</a>
 
+<a href="dhaba_royalty_menu.html" class="restaurant-card">
+<img src="https://i.pinimg.com/736x/11/82/96/1182969ff7c16db40f998969db776a9c.jpg" alt="Dhaba Royalty Indian restaurant">
+<div class="restaurant-info">
+<h3>Dhaba Royalty</h3>
+<p>⭐ 4.6 • 32 min</p>
+<p class="cuisine">Indian • Authentic</p>
+</div>
+</a>
+
+<a href="saffron_kitchen_menu.html" class="restaurant-card">
+<img src="https://images.pexels.com/photos/1410235/pexels-photo-1410235.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Saffron Kitchen Indian restaurant">
+<div class="restaurant-info">
+<h3>Saffron Kitchen</h3>
+<p>⭐ 4.8 • 28 min</p>
+<p class="cuisine">Indian • South Indian</p>
+</div>
+</a>
+
+<a href="tandoor_palace_menu.html" class="restaurant-card">
+<img src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Tandoor Palace Indian restaurant">
+<div class="restaurant-info">
+<h3>Tandoor Palace</h3>
+<p>⭐ 4.5 • 35 min</p>
+<p class="cuisine">Indian • Mughlai</p>
+</div>
+</a>
+</div>
 </section>
 
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<div class="login-header">
+<h3>Login</h3>
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

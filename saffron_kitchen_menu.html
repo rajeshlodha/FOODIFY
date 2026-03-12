@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Saffron Kitchen Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Saffron Kitchen - South Indian</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/d4/d0/55/d4d05510d95f793fd27855bbe5851f20.jpg" alt="Masala Dosa">
+<div class="food-info">
+<h3>Masala Dosa</h3>
+<p>⭐ 4.8 • Crispy crepe</p>
+<div class="food-bottom">
+<span class="price">₹179</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/6e/ce/8d/6ece8d9a9ad234ea9813cd29397ae44f.jpg" alt="Idli">
+<div class="food-info">
+<h3>Idli (3 pcs)</h3>
+<p>⭐ 4.7 • Steamed cake</p>
+<div class="food-bottom">
+<span class="price">₹99</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/c9/50/f4/c950f41036fd2171b857eea04b58dc42.jpg" alt="Sambar">
+<div class="food-info">
+<h3>Sambar Rice</h3>
+<p>⭐ 4.6 • Vegetable stew</p>
+<div class="food-bottom">
+<span class="price">₹159</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/0a/4b/91/0a4b91c8acb10d03394c4c99e6c4d3b0.jpg" alt="Uttapam">
+<div class="food-info">
+<h3>Vegetable Uttapam</h3>
+<p>⭐ 4.5 • Savory pancake</p>
+<div class="food-bottom">
+<span class="price">₹149</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/45/1a/24/451a24a5d7ce55f0a92178160404c3c9.jpg" alt="Coconut Chutney">
+<div class="food-info">
+<h3>Coconut Chutney</h3>
+<p>⭐ 4.7 • Fresh & creamy</p>
+<div class="food-bottom">
+<span class="price">₹59</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Masala Dosa", price: 179, category: "vegetarian", img: "https://images.unsplash.com/photo-1630383249028-f7d41f857d07?w=800" },
+  { name: "Idli", price: 99, category: "vegetarian", img: "https://images.pexels.com/photos/6299363/pexels-photo-6299363.jpeg" },
+  { name: "Sambar Rice", price: 159, category: "vegetarian", img: "https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg" },
+  { name: "Uttapam", price: 149, category: "vegetarian", img: "https://images.pexels.com/photos/5969618/pexels-photo-5969618.jpeg" },
+  { name: "Coconut Chutney", price: 59, category: "vegetarian", img: "https://images.pexels.com/photos/5848096/pexels-photo-5848096.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,64 +1,48 @@
-
-const foods = [
-{
-    name:"Pepperoni Pizza",
-price:299,
-category:"pizza",
-img:"https://images.unsplash.com/photo-1601924582975-7e0d0f0a5f08?w=800"
-},
-{
-name:"Cheese Burger",
-price:199,
-category:"burger",
-img:"https://images.unsplash.com/photo-1550547660-d9450f859349?w=800"
-},
-{
-name:"Chocolate Cake",
-price:149,
-category:"dessert",
-img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800"
-},
-{
-name:"Veg Pizza",
-price:249,
-category:"pizza",
-img:"https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800"
-},
-{
-name:"Double Burger",
-price:249,
-category:"burger",
-img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
-}
-]
-
-let savedCart = localStorage.getItem("cart")
-if(savedCart){
-Object.assign(cart, JSON.parse(savedCart))
-updateCart()
-}
-const grid=document.getElementById("foodGrid")
+// Cart object and DOM elements
 const cart={}
 const cartItems=document.getElementById("cartItems")
 const total=document.getElementById("total")
 const cartCount=document.getElementById("cartCount")
 const cartPanel=document.getElementById("cartPanel")
+const loginBtn=document.getElementById("loginBtn")
+const loginModal=document.getElementById("loginModal")
+const cartIcon=document.getElementById("cartIcon")
+
+// Load saved cart on page load
+let savedCart = localStorage.getItem("cart")
+if(savedCart){
+try{
+Object.assign(cart, JSON.parse(savedCart))
+if(cartItems && total && cartCount){
+updateCart()
+}
+}catch(e){
+console.error("Failed to load cart:", e)
+}
+}
 
 function displayFoods(list){
+if(!grid) return
 grid.innerHTML=""
+let html=""
 list.forEach((food,i)=>{
-grid.innerHTML+=`
+html+=`
 <div class="food-card">
-<img src="${food.img}">
+<img src="${food.img}" alt="${food.name}">
 <h4>${food.name}</h4>
 <p>₹${food.price}</p>
-<button onclick="addToCart(${i})">Add to Cart</button>
+<button onclick="addToCart(${i})" aria-label="Add ${food.name} to cart">Add to Cart</button>
 </div>
 `
 })
+grid.innerHTML=html
+if(list.length===0){
+grid.innerHTML="<p style='grid-column:1/-1;text-align:center;'>No items found</p>"
+}
 }
 
 function addToCart(i){
+if(i < 0 || i >= foods.length) return
 let item = foods[i]
 if(cart[item.name]){
 cart[item.name].qty++
@@ -66,49 +50,65 @@ cart[item.name].qty++
 cart[item.name] = {...item, qty:1}
 }
 updateCart()
+showNotification(`${item.name} added to cart!`)
 }
 
 function updateCart(){
-cartItems.innerHTML = ""
+if(!cartItems || !total || !cartCount) return
+let html=""
 let sum = 0
 let count = 0
 Object.values(cart).forEach(item => {
-cartItems.innerHTML += `
+const escapedName = item.name.replace(/'/g, "\\'")
+html += `
 <li class="cart-item">
 <span>${item.name}</span>
 <div class="qty-box">
-<button onclick="changeQty('${item.name}',-1)">-</button>
+<button onclick="changeQty('${escapedName}',-1)" aria-label="Decrease ${item.name} quantity">-</button>
 <span>${item.qty}</span>
-<button onclick="changeQty('${item.name}',1)">+</button>
+<button onclick="changeQty('${escapedName}',1)" aria-label="Increase ${item.name} quantity">+</button>
 </div>
 <span>₹${item.price * item.qty}</span>
-<button class="remove-btn" onclick="removeItem('${item.name}')">✕</button>
+<button class="remove-btn" onclick="removeItem('${escapedName}')" aria-label="Remove ${item.name}">✕</button>
 </li>
 `
 sum += item.price * item.qty
 count += item.qty
 })
+cartItems.innerHTML = html
 total.innerText = sum
 cartCount.innerText = count
+try{
 localStorage.setItem("cart", JSON.stringify(cart))
-
+}catch(e){
+console.error("Failed to save cart:", e)
+}
 }
 
 function toggleCart(){
+if(!cartPanel) return
 cartPanel.classList.toggle("active")
 }
 
 function changeQty(name,change){
-cart[name].qty += change
-if(cart[name].qty <= 0){
+if(cart[name]){
+const newQty = cart[name].qty + change
+if(newQty <= 0){
 delete cart[name]
-}
 updateCart()
+showNotification(`Removed from cart`, true)
+}else{
+cart[name].qty = newQty
+updateCart()
+showNotification(`Quantity updated!`)
+}
+}
 }
 
 function removeItem(name){
 delete cart[name]
 updateCart()
+showNotification(`Removed from cart`, true)
 }
 
 function filterCategory(cat){
@@ -120,25 +120,83 @@ displayFoods(foods.filter(f=>f.category===cat))
 }
 
 function clearCart(){
-localStorage.removeItem("cart")
-location.reload()
+  for(let key in cart){
+    delete cart[key]
+  }
+  updateCart()
+  localStorage.removeItem("cart")
 }
 
-document.getElementById("cartIcon").onclick = toggleCart 
-document.getElementById("loginBtn").onclick=()=>{
-document.getElementById("loginModal").style.display="flex"
+function showNotification(message, isRemove=false){
+  const notification = document.getElementById("notification")
+  if(!notification) return
+  
+  notification.textContent = message
+  notification.classList.remove("show", "show-remove")
+  notification.classList.add("show")
+  
+  if(isRemove){
+    notification.classList.add("show-remove")
+  }
+  
+  setTimeout(()=>{
+    notification.classList.remove("show", "show-remove")
+  }, 2000)
+}
+
+if(cartIcon){
+  cartIcon.onclick = toggleCart
+}
+if(loginBtn){
+  loginBtn.onclick=()=>{
+    if(loginModal){
+      loginModal.style.display="flex"
+    }
+  }
 }
 
 function closeLogin(){
-document.getElementById("loginModal").style.display="none"
+  if(loginModal){
+    loginModal.style.display="none"
+  }
 }
 
 function checkout(){
+if(Object.keys(cart).length === 0){
+alert("Your cart is empty!")
+return
+}
 alert("Order placed successfully!")
+clearCart()
+showNotification("Order placed successfully! 🎉")
 }
 
 window.onload = function(){
-cartPanel.classList.remove("active")
+  if(cartPanel){
+    cartPanel.classList.remove("active")
+  }
+  // Only call displayFoods if foods array exists (for categories page)
+  if(typeof foods !== 'undefined' && grid){
+    displayFoods(foods)
+  }
+  
+  // Initialize FAQ functionality
+  initializeFAQ()
 }
 
-displayFoods(foods)
+function initializeFAQ(){
+  const faqItems = document.querySelectorAll('.faq-item')
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question')
+    question.addEventListener('click', () => {
+      // Close other items
+      faqItems.forEach(otherItem => {
+        if(otherItem !== item && otherItem.classList.contains('active')){
+          otherItem.classList.remove('active')
+        }
+      })
+      // Toggle current item
+      item.classList.toggle('active')
+    })
+  })
+}

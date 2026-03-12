@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Martinoz Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Martinoz Menu - Italian Pizzas</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://images.pexels.com/photos/20115306/pexels-photo-20115306.jpeg" alt="Margherita Pizza">
+<div class="food-info">
+<h3>Margherita Pizza</h3>
+<p>⭐ 4.7 • Classic Italian</p>
+<div class="food-bottom">
+<span class="price">₹349</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://imgs.search.brave.com/4MThpWNc8g65-eMYOytPHEOlXsPTCVhdOZGbYmdWZv4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/dWVuZ2FnZS5pby91/cGxvYWRzLzUvaW1h/Z2UtNjk0OTI1LTE3/MTU2Nzg5MDgucG5n" alt="Pepperoni Pizza">
+<div class="food-info">
+<h3>Pepperoni Pizza</h3>
+<p>⭐ 4.6 • Spicy & delicious</p>
+<div class="food-bottom">
+<span class="price">₹399</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://imgs.search.brave.com/5Gx6CdgoybXvMIBdWgtcL1y9nqhLFtXMF20WBuDd66w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dGh1cnNkYXluaWdo/dHBpenphLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/Ni92ZWdnaWUtcGl6/emEtb3ZlcmhlYWQt/c2xpY2VkLTcyMHg5/MDAucG5n" alt="Veggie Supreme">
+<div class="food-info">
+<h3>Veggie Supreme</h3>
+<p>⭐ 4.5 • Fresh vegetables</p>
+<div class="food-bottom">
+<span class="price">₹329</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/c3/aa/22/c3aa22b1d73e65c59cd98316df03078e.jpg" alt="Four Cheese">
+<div class="food-info">
+<h3>Four Cheese Pizza</h3>
+<p>⭐ 4.8 • Cheese lover's dream</p>
+<div class="food-bottom">
+<span class="price">₹449</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/38/19/a1/3819a163d2ae93ea60f4a3c85d821cf1.jpg" alt="Garlic Bread">
+<div class="food-info">
+<h3>Garlic Bread</h3>
+<p>⭐ 4.6 • Crispy & aromatic</p>
+<div class="food-bottom">
+<span class="price">₹149</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Margherita Pizza", price: 349, category: "pizza", img: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg" },
+  { name: "Pepperoni Pizza", price: 399, category: "pizza", img: "https://images.unsplash.com/photo-1601924582975-7e0d0f0a5f08?w=800" },
+  { name: "Veggie Supreme Pizza", price: 329, category: "pizza", img: "https://images.pexels.com/photos/2869199/pexels-photo-2869199.jpeg" },
+  { name: "Four Cheese Pizza", price: 449, category: "pizza", img: "https://images.pexels.com/photos/3915857/pexels-photo-3915857.jpeg" },
+  { name: "Garlic Bread", price: 149, category: "pizza", img: "https://images.pexels.com/photos/1410235/pexels-photo-1410235.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

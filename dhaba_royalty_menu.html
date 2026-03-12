@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dhaba Royalty Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Dhaba Royalty - Authentic Indian</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/4e/70/b9/4e70b9a62f5334ed8219d337b8aba65e.jpg" alt="Rajma Chawal">
+<div class="food-info">
+<h3>Rajma Chawal</h3>
+<p>⭐ 4.7 • Kidney beans & rice</p>
+<div class="food-bottom">
+<span class="price">₹199</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/0b/3f/78/0b3f780cd1ccadb90fec6b5feabae158.jpg" alt="Makki Roti">
+<div class="food-info">
+<h3>Makki Roti with Butter</h3>
+<p>⭐ 4.6 • Cornmeal bread</p>
+<div class="food-bottom">
+<span class="price">₹59</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/d1/c5/0a/d1c50a4b55e421f7c28978b6cc7cda5d.jpg" alt="Aloo Gobi">
+<div class="food-info">
+<h3>Aloo Gobi</h3>
+<p>⭐ 4.5 • Potato & cauliflower</p>
+<div class="food-bottom">
+<span class="price">₹189</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/34/38/ae/3438ae36525fa205186a85d44881f4af.jpg" alt="Lassi">
+<div class="food-info">
+<h3>Mango Lassi</h3>
+<p>⭐ 4.8 • Yogurt drink</p>
+<div class="food-bottom">
+<span class="price">₹99</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/20/4f/44/204f445ab7277c9fce8114fdd421b432.jpg" alt="Pakora">
+<div class="food-info">
+<h3>Vegetable Pakora</h3>
+<p>⭐ 4.6 • Fried fritters</p>
+<div class="food-bottom">
+<span class="price">₹129</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Rajma Chawal", price: 199, category: "vegetarian", img: "https://images.unsplash.com/photo-1585147221556-91cdc87a31b4?w=800" },
+  { name: "Makki Roti", price: 59, category: "bread", img: "https://images.pexels.com/photos/5837862/pexels-photo-5837862.jpeg" },
+  { name: "Aloo Gobi", price: 189, category: "vegetarian", img: "https://images.pexels.com/photos/5974052/pexels-photo-5974052.jpeg" },
+  { name: "Mango Lassi", price: 99, category: "beverage", img: "https://images.unsplash.com/photo-1495195134817-1cee059fb8d3?w=800" },
+  { name: "Pakora", price: 129, category: "vegetarian", img: "https://images.pexels.com/photos/9609623/pexels-photo-9609623.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

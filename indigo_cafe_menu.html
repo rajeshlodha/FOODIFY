@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Indigo Cafe Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Indigo Cafe - North Indian</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/f3/ff/2e/f3ff2e4d2e96a0ad9838e8241c554fc2.jpg" alt="Chicken Biryani">
+<div class="food-info">
+<h3>Chicken Biryani</h3>
+<p>⭐ 4.8 • Royal rice dish</p>
+<div class="food-bottom">
+<span class="price">₹329</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/c3/98/b1/c398b1367a78955ae6f7edd80107cf18.jpg" alt="Tandoori Naan">
+<div class="food-info">
+<h3>Tandoori Naan</h3>
+<p>⭐ 4.7 • Clay oven bread</p>
+<div class="food-bottom">
+<span class="price">₹79</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/5f/b4/63/5fb4638b9d47571dd2416a4dea924492.jpg" alt="Shahi Tukda">
+<div class="food-info">
+<h3>Shahi Tukda</h3>
+<p>⭐ 4.6 • Royal dessert</p>
+<div class="food-bottom">
+<span class="price">₹149</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/d6/60/25/d660255e0ac13e20bc3c674ee3d11ac4.jpg" alt="Chole Bhature">
+<div class="food-info">
+<h3>Chole Bhature</h3>
+<p>⭐ 4.5 • Spicy chickpeas</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&h=400&fit=crop" alt="Samosa">
+<div class="food-info">
+<h3>Samosa (4 pcs)</h3>
+<p>⭐ 4.6 • Crispy snack</p>
+<div class="food-bottom">
+<span class="price">₹79</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Chicken Biryani", price: 329, category: "biryani", img: "https://images.unsplash.com/photo-1587411434332-2acb80cf35dc?w=800" },
+  { name: "Tandoori Naan", price: 79, category: "bread", img: "https://images.pexels.com/photos/8474625/pexels-photo-8474625.jpeg" },
+  { name: "Shahi Tukda", price: 149, category: "dessert", img: "https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg" },
+  { name: "Chole Bhature", price: 249, category: "vegetarian", img: "https://images.pexels.com/photos/5802045/pexels-photo-5802045.jpeg" },
+  { name: "Samosa", price: 79, category: "vegetarian", img: "https://images.pexels.com/photos/8686464/pexels-photo-8686464.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +9,19 @@
 </head>
 <body>
 
+<div id="notification" class="notification"></div>
+
 <header class="navbar">
 <div class="nav-left">
 <div class="logo">
-<img src="images/logo.png" alt="logo">
-<span>Foodify</span>
+<img src="images/logo.jpg" alt="Foodify Logo">
 </div>
 </div>
 
 <nav class="nav-links">
 <a href="index.html">Home</a>
-<a href="menu.html" class="restaurant-card">
-<a href="index.html#categories">Categories</a>
+<a href="categories.html">Categories</a>
 <a href="restaurant.html">Restaurants</a>
-
 </nav>
 <div class="nav-right">
 <div class="cart-icon" id="cartIcon">
@@ -36,16 +34,23 @@
 
 
 <section class="hero">
-<h1>Discover Delicious Food Near You</h1>
-<p>Order from your favorite restaurants and get it delivered fast.</p>
-
+<div class="hero-content">
+<div class="hero-left">
+<div class="hero-logo">Food</div>
+<h1>Hungry ? Just Foodify it ....</h1>
 <div class="search-box">
     <div class="search-bar">
-        <input type="text" placeholder="Search for food or restaurants...">
-        <button>Search</button>
+        <input type="text" placeholder="Search for food or restaurants..." aria-label="Search for food or restaurants">
+        <button aria-label="Search">Search</button>
     </div>
 </div>
-
+</div>
+<div class="hero-right">
+<img src="https://i.pinimg.com/1200x/43/7c/44/437c447768d443d33d9ee3743e87dd08.jpg" alt="Burger" class="hero-image burger">
+<img src="https://i.pinimg.com/736x/ef/c7/70/efc770c55b21924dee240a345df46d29.jpg" alt="Noodles" class="hero-image noodles">
+<img src="https://i.pinimg.com/1200x/d4/c1/06/d4c106cf72e6bbc54d45c22d28394817.jpg" alt="Drink" class="hero-image drink">
+</div>
+</div>
 <div class="categories-row">
 <span>🍕 Pizza</span>
 <span>🍔 Burger</span>
@@ -58,54 +63,275 @@
 <section class="restaurants">
 <h2>Popular Restaurants</h2>
 <div class="restaurant-grid">
-<div class="restaurant-card">
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800">
+<a href="mcdonalds_menu.html" class="restaurant-card">
+<img src="images/mcdonald.webp" alt="McDonald's - Burgers and Fast Food">
 <div class="restaurant-info">
-<h3>Burger Palace</h3>
+<h3>McDonald's</h3>
 <p>⭐ 4.4 • 25 min</p>
 <p class="cuisine">Burgers • Fast Food</p>
 </div>
-</div>
-<div class="restaurant-card">
-<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800">
+</a>
+
+<a href="martinoz_menu.html" class="restaurant-card">
+<img src="images/martinoz.webp" alt="Martinoz - Pizza and Italian Restaurant">
 <div class="restaurant-info">
-<h3>Pizza Heaven</h3>
+<h3>Martinoz</h3>
 <p>⭐ 4.6 • 30 min</p>
 <p class="cuisine">Pizza • Italian</p>
 </div>
-</div>
-<div class="restaurant-card">
-<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800">
+</a>
+
+<a href="farzi_cafe_menu.html" class="restaurant-card">
+<img src="images/farzi.webp" alt="Farzi Cafe - Indian North Indian Cuisine">
 <div class="restaurant-info">
-<h3>Spice Garden</h3>
+<h3>Farzi cafe</h3>
 <p>⭐ 4.5 • 35 min</p>
-<p class="cuisine">Indian • Curry</p>
+<p class="cuisine">Indian • North indian</p>
 </div>
-</div>
-<div class="restaurant-card">
-<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800">
+</a>
+
+<a href="starbucks_menu.html" class="restaurant-card">
+<img src="images/starbucks.webp" alt="Starbucks - Coffee and Beverages">
 <div class="restaurant-info">
-<h3>Pasta House</h3>
+<h3>Starbucks</h3>
 <p>⭐ 4.3 • 28 min</p>
-<p class="cuisine">Italian • Pasta</p>
+<p class="cuisine">Coffee • Beverages </p>
 </div>
+</a>
+</div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+<h2>How It Works</h2>
+<div class="steps-grid">
+<div class="step-card">
+<div class="step-icon">1️⃣</div>
+<h3>Select Restaurant</h3>
+<p>Browse through our wide selection of restaurants and cuisines</p>
+</div>
+<div class="step-card">
+<div class="step-icon">2️⃣</div>
+<h3>Browse Menu</h3>
+<p>Explore delicious dishes with detailed descriptions and ratings</p>
+</div>
+<div class="step-card">
+<div class="step-icon">3️⃣</div>
+<h3>Add to Cart</h3>
+<p>Choose your favorite items and add them to your cart</p>
+</div>
+<div class="step-card">
+<div class="step-icon">4️⃣</div>
+<h3>Checkout</h3>
+<p>Complete your order and track it in real-time</p>
 </div>
 </div>
 </section>
 
-<section id="categories" class="categories">
-<h2>Categories</h2>
-<div class="category-list">
-<button onclick="filterCategory('all')">All</button>
-<button onclick="filterCategory('pizza')">Pizza</button>
-<button onclick="filterCategory('burger')">Burger</button>
-<button onclick="filterCategory('dessert')">Dessert</button>
+<!-- Why Choose Foodify Section -->
+<section class="why-choose">
+<h2>Why Choose Foodify?</h2>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">⚡</div>
+<h3>Fast Delivery</h3>
+<p>Get your food delivered in 20-45 minutes with live tracking</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🍽️</div>
+<h3>Wide Selection</h3>
+<p>Thousands of restaurants and cuisines to choose from</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">💰</div>
+<h3>Best Prices</h3>
+<p>Competitive pricing with regular discounts and offers</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">✅</div>
+<h3>Quality Assured</h3>
+<p>All restaurants are verified and highly rated</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🔒</div>
+<h3>Secure Payment</h3>
+<p>Safe and secure payment options for your peace of mind</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">📱</div>
+<h3>Easy Ordering</h3>
+<p>Simple and user-friendly interface for quick ordering</p>
+</div>
 </div>
 </section>
 
-<section id="menu" class="menu">
-<h2>Popular Items</h2>
-<div class="food-grid" id="foodGrid"></div>
+<!-- Special Offers Section -->
+<section class="special-offers">
+<h2>Special Offers & Promotions</h2>
+<div class="offers-grid">
+<div class="offer-card">
+<div class="offer-badge">50% OFF</div>
+<h3>First Order Discount</h3>
+<p>Get 50% off on your first order</p>
+<small>Use code: FIRST50</small>
+</div>
+<div class="offer-card">
+<div class="offer-badge">FREE</div>
+<h3>Free Delivery</h3>
+<p>Free delivery on orders above ₹500</p>
+<small>Valid on all restaurants</small>
+</div>
+<div class="offer-card">
+<div class="offer-badge">₹200</div>
+<h3>Flat Discount</h3>
+<p>Flat ₹200 off on orders above ₹1000</p>
+<small>Use code: SAVE200</small>
+</div>
+<div class="offer-card">
+<div class="offer-badge">20% OFF</div>
+<h3>Weekend Special</h3>
+<p>Get 20% off on every weekend order</p>
+<small>Friday to Sunday</small>
+</div>
+</div>
+</section>
+
+<!-- Quick Stats Banner -->
+<section class="quick-stats">
+<div class="stats-container">
+<div class="stat-item">
+<div class="stat-number">50K+</div>
+<div class="stat-label">Happy Customers</div>
+</div>
+<div class="stat-item">
+<div class="stat-number">200+</div>
+<div class="stat-label">Partner Restaurants</div>
+</div>
+<div class="stat-item">
+<div class="stat-number">15min</div>
+<div class="stat-label">Average Delivery Time</div>
+</div>
+<div class="stat-item">
+<div class="stat-number">4.8★</div>
+<div class="stat-label">Average Rating</div>
+</div>
+</div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section class="customer-reviews">
+<h2>What Our Customers Say</h2>
+<div class="reviews-grid">
+<div class="review-card">
+<div class="review-header">
+<div class="reviewer-info">
+<h3>Priya Sharma</h3>
+<p>Verified Customer</p>
+<div class="review-rating">⭐⭐⭐⭐⭐</div>
+</div>
+</div>
+<p class="review-text">"Foodify has been a lifesaver for busy days! The food arrives hot and fresh within 20 minutes. Best food delivery app I've used!"</p>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="reviewer-info">
+<h3>Arjun Patel</h3>
+<p>Verified Customer</p>
+<div class="review-rating">⭐⭐⭐⭐⭐</div>
+</div>
+</div>
+<p class="review-text">"Great variety of restaurants and the prices are really competitive. The loyalty program saves me a lot of money every month!"</p>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="reviewer-info">
+<h3>Deepika Verma</h3>
+<p>Verified Customer</p>
+<div class="review-rating">⭐⭐⭐⭐⭐</div>
+</div>
+</div>
+<p class="review-text">"Amazing customer service! I had an issue with my order and they resolved it instantly. Foodify truly cares about their customers."</p>
+</div>
+
+<div class="review-card">
+<div class="review-header">
+<div class="reviewer-info">
+<h3>Rajesh Kumar</h3>
+<p>Verified Customer</p>
+<div class="review-rating">⭐⭐⭐⭐⭐</div>
+</div>
+</div>
+<p class="review-text">"The app is super easy to use and the food quality is consistently excellent. I order from Foodify at least 3 times a week!"</p>
+</div>
+</div>
+</section>
+
+<!-- FAQs Section -->
+<section class="faq-section">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-container">
+<div class="faq-item">
+<div class="faq-question">
+<h3>How long does delivery take?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Most orders are delivered within 20-45 minutes depending on the restaurant and your location. You can track your order in real-time using our app.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">
+<h3>What payment methods do you accept?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>We accept all major credit and debit cards, digital wallets (Google Pay, Apple Pay, PhonePe), UPI, and cash on delivery for selected locations.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">
+<h3>Can I cancel my order?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Yes, you can cancel your order within 30 seconds of placing it. After that, contact our customer support and we'll help you if the restaurant hasn't started preparing.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">
+<h3>Is my personal information safe?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Absolutely! We use state-of-the-art encryption and security protocols to protect your personal and payment information. Your data is never shared with third parties.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">
+<h3>What if my food arrives late or damaged?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>We offer a full refund or replacement if your food arrives late or damaged. Simply report it through the app and our team will resolve it within 24 hours.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">
+<h3>Do you have vegetarian options?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Yes! We have 100+ vegetarian restaurants and every restaurant has clearly marked vegetarian options. You can filter by dietary preferences while browsing.</p>
+</div>
+</div>
+</div>
 </section>
 
 <div class="cart-panel" id="cartPanel">
@@ -117,19 +343,101 @@
 </ul>
 <p>Total: ₹<span id="total">0</span></p>
 <button onclick="checkout()">Checkout</button>
-</div>
-
 <button onclick="clearCart()">Clear Cart</button>
+</div>
 
 <div class="login-modal" id="loginModal">
 <div class="login-box">
+<div class="login-header">
 <h3>Login</h3>
-<input type="text" placeholder="Username">
-<input type="password" placeholder="Password">
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
 <button onclick="closeLogin()">Login</button>
 </div>
 </div>
 
 <script src="script.js"></script>
+
+<footer class="footer">
+<div class="footer-container">
+<div class="footer-section footer-logo-section">
+<div class="footer-logo">
+<span>Foodify</span>
+</div>
+<p class="footer-copyright">© 2025 Foodify Limited</p>
+</div>
+
+<div class="footer-section">
+<h4>Company</h4>
+<ul>
+<li><a href="#about">About Us</a></li>
+<li><a href="#corporate">Foodify Corporate</a></li>
+<li><a href="#careers">Careers</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#blog">Blog</a></li>
+<li><a href="#press">Press</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Contact us</h4>
+<ul>
+<li><a href="#support">Help & Support</a></li>
+<li><a href="#partner">Partner With Us</a></li>
+<li><a href="#delivery">Ride With Us</a></li>
+<li><a href="#restaurants">Partner Restaurants</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Available in:</h4>
+<ul>
+<li><a href="#bangalore">Bangalore</a></ul>li>
+<li><a href="#gurgaon">Gurgaon</a></li>
+<li><a href="#hyderabad">Hyderabad</a></li>
+<li><a href="#delhi">Delhi</a></li>
+<li><a href="#mumbai">Mumbai</a></li>
+<li><a href="#pune">Pune</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Life at Foodify</h4>
+<ul>
+<li><a href="#explore">Explore With Foodify</a></li>
+<li><a href="#news">Foodify News</a></li>
+<li><a href="#snackables">Snackables</a></li>
+<li><a href="#stories">Stories</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Legal</h4>
+<ul>
+<li><a href="#terms">Terms & Conditions</a></li>
+<li><a href="#cookie">Cookie Policy</a></li>
+<li><a href="#privacy">Privacy Policy</a></li>
+</ul>
+</div>
+
+<div class="footer-section footer-social">
+<h4>Social Links</h4>
+<div class="social-icons">
+<a href="#linkedin" class="social-icon">in</a>
+<a href="#instagram" class="social-icon">📷</a>
+<a href="#facebook" class="social-icon">f</a>
+<a href="#pinterest" class="social-icon">📌</a>
+<a href="#twitter" class="social-icon">𝕏</a>
+</div>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>Made with ❤️ by Foodify Team</p>
+</div>
+</footer>
+
 </body>
 </html>

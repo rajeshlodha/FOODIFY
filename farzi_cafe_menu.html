@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Farzi Cafe Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="menu">
+<h2>Farzi Cafe - North Indian</h2>
+<div class="food-grid">
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/a7/12/b3/a712b30ad8fcf3b5d1329ff3233f99d1.jpg" alt="Butter Chicken">
+<div class="food-info">
+<h3>Butter Chicken</h3>
+<p>⭐ 4.8 • Creamy & rich</p>
+<div class="food-bottom">
+<span class="price">₹349</span>
+<button onclick="addToCart(0)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/c3/98/b1/c398b1367a78955ae6f7edd80107cf18.jpg" alt="Naan Bread">
+<div class="food-info">
+<h3>Butter Naan</h3>
+<p>⭐ 4.7 • Soft & fluffy</p>
+<div class="food-bottom">
+<span class="price">₹69</span>
+<button onclick="addToCart(1)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/18/93/b1/1893b1414f45ace82f2de43015d4c990.jpg" alt="Chicken Tikka">
+<div class="food-info">
+<h3>Chicken Tikka</h3>
+<p>⭐ 4.6 • Tandoori specialty</p>
+<div class="food-bottom">
+<span class="price">₹299</span>
+<button onclick="addToCart(2)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/1200x/98/ae/52/98ae52634a80a52054bf9aff67bfef34.jpg" alt="Dal Makhani">
+<div class="food-info">
+<h3>Dal Makhani</h3>
+<p>⭐ 4.5 • Creamy lentils</p>
+<div class="food-bottom">
+<span class="price">₹249</span>
+<button onclick="addToCart(3)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<div class="food-card">
+<img src="https://i.pinimg.com/736x/59/81/85/5981859da80c1d8580654daf371d0ffe.jpg" alt="Paneer Tikka">
+<div class="food-info">
+<h3>Paneer Tikka Masala</h3>
+<p>⭐ 4.7 • Cottage cheese special</p>
+<div class="food-bottom">
+<span class="price">₹299</span>
+<button onclick="addToCart(4)" class="add-btn">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+const foods = [
+  { name: "Butter Chicken", price: 349, category: "chicken", img: "https://images.unsplash.com/photo-1602894657506-d202d46c79bf?w=800" },
+  { name: "Tandoori Naan", price: 69, category: "bread", img: "https://images.pexels.com/photos/8474625/pexels-photo-8474625.jpeg" },
+  { name: "Chicken Tikka", price: 299, category: "chicken", img: "https://images.unsplash.com/photo-1565617566595-36497800e48c?w=800" },
+  { name: "Dal Makhani", price: 249, category: "vegetarian", img: "https://images.unsplash.com/photo-1585147221556-91cdc87a31b4?w=800" },
+  { name: "Paneer Tikka Masala", price: 299, category: "vegetarian", img: "https://images.pexels.com/photos/8634311/pexels-photo-8634311.jpeg" }
+];
+</script>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

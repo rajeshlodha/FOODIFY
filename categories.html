@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories - FOODIFY</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="categories-page">
+<h1>Browse by Categories</h1>
+<p class="categories-subtitle">Find your favorite food by category</p>
+
+<div class="categories-grid">
+<div class="category-card" onclick="filterByCategory('pizza')">
+<div class="category-icon">🍕</div>
+<h3>Pizza</h3>
+<p>Crispy & Cheesy</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('burger')">
+<div class="category-icon">🍔</div>
+<h3>Burgers</h3>
+<p>Juicy & Fresh</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('chinese')">
+<div class="category-icon">🍜</div>
+<h3>Chinese</h3>
+<p>Spicy & Flavorful</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('chicken')">
+<div class="category-icon">🍗</div>
+<h3>Chicken</h3>
+<p>Grilled & Tender</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('dessert')">
+<div class="category-icon">🍰</div>
+<h3>Desserts</h3>
+<p>Sweet & Delicious</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('beverage')">
+<div class="category-icon">🥤</div>
+<h3>Beverages</h3>
+<p>Refreshing Drinks</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('biryani')">
+<div class="category-icon">🍛</div>
+<h3>Biryani</h3>
+<p>Aromatic Rice</p>
+</div>
+
+<div class="category-card" onclick="filterByCategory('vegetarian')">
+<div class="category-icon">🥬</div>
+<h3>Vegetarian</h3>
+<p>Healthy Options</p>
+</div>
+</div>
+
+<div class="category-filters">
+<h2>Filter Results</h2>
+<div class="filter-buttons">
+<button class="filter-btn active" onclick="showAllItems()">All Items</button>
+<button class="filter-btn" onclick="filterByPrice('budget')">Budget</button>
+<button class="filter-btn" onclick="filterByPrice('mid')">Mid-Range</button>
+<button class="filter-btn" onclick="filterByPrice('premium')">Premium</button>
+</div>
+</div>
+
+<section class="menu">
+<h2>Popular Items</h2>
+<div class="food-grid" id="foodGrid">
+</div>
+</section>
+</section>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<div class="login-header">
+<h3>Login</h3>
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-container">
+<div class="footer-section footer-logo-section">
+<div class="footer-logo">
+<span>Foodify</span>
+</div>
+<p class="footer-copyright">© 2025 Foodify Limited</p>
+</div>
+
+<div class="footer-section">
+<h4>Company</h4>
+<ul>
+<li><a href="#about">About Us</a></li>
+<li><a href="#careers">Careers</a></li>
+<li><a href="#blog">Blog</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Contact us</h4>
+<ul>
+<li><a href="#support">Help & Support</a></li>
+<li><a href="#partner">Partner With Us</a></li>
+</ul>
+</div>
+
+<div class="footer-section">
+<h4>Available in:</h4>
+<ul>
+<li><a href="#bangalore">Bangalore</a></li>
+<li><a href="#delhi">Delhi</a></li>
+<li><a href="#mumbai">Mumbai</a></li>
+</ul>
+</div>
+
+<div class="footer-section footer-social">
+<h4>Social Links</h4>
+<div class="social-icons">
+<a href="#linkedin" class="social-icon">in</a>
+<a href="#instagram" class="social-icon">📷</a>
+<a href="#twitter" class="social-icon">𝕏</a>
+</div>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>Made with ❤️ by Foodify Team</p>
+</div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+let currentCategory = 'all';
+let currentPriceFilter = 'all';
+
+function filterByCategory(category) {
+currentCategory = category;
+displayFoodsByCategory(category);
+}
+
+function showAllItems() {
+currentCategory = 'all';
+currentPriceFilter = 'all';
+document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+event.target.classList.add('active');
+displayFoods(foods);
+}
+
+function filterByPrice(range) {
+currentPriceFilter = range;
+let filtered = foods;
+
+if(currentCategory !== 'all') {
+filtered = foods.filter(f => f.category === currentCategory);
+}
+
+if(range === 'budget') {
+filtered = filtered.filter(f => f.price < 250);
+} else if(range === 'mid') {
+filtered = filtered.filter(f => f.price >= 250 && f.price <= 500);
+} else if(range === 'premium') {
+filtered = filtered.filter(f => f.price > 500);
+}
+
+displayFoods(filtered);
+}
+
+function displayFoodsByCategory(category) {
+const filtered = foods.filter(f => f.category === category);
+displayFoods(filtered);
+}
+
+// Display on page load
+window.addEventListener('DOMContentLoaded', () => {
+displayFoods(foods);
+});
+</script>
+</body>
+</html>
