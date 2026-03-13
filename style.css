@@ -104,6 +104,8 @@ margin:0;
 font-family:'Poppins', sans-serif;
 background:#f4f6fb;
 color:#333;
+overflow-x:hidden;
+width:100%;
 }
 
 .notification{
@@ -160,6 +162,8 @@ top:0;
 z-index:999;
 border-bottom:1px solid rgba(20, 184, 166, 0.1);
 transition:all 0.3s ease;
+width:100%;
+box-sizing:border-box;
 }
 
 .nav-left{
@@ -172,6 +176,7 @@ display:flex;
 gap:30px;
 margin:0;
 padding:0;
+flex-wrap:wrap;
 }
 
 .nav-links a{
@@ -1358,56 +1363,64 @@ font-size:13px;
 
 @media(max-width:768px){
 .navbar{
-padding:12px 20px;
+padding:12px 15px;
 flex-wrap:wrap;
-gap:15px;
+gap:12px;
+width:100%;
+box-sizing:border-box;
 }
 
 .nav-left{
 order:1;
-width:100%;
+width:calc(50% - 6px);
+min-width:120px;
 }
 
 .logo{
-font-size:22px;
+font-size:18px;
 }
 
 .logo img{
-height:80px;
+height:60px;
 width:auto;
 }
 
 .nav-links{
 order:3;
 width:100%;
-gap:15px;
-font-size:12px;
+gap:8px;
+font-size:11px;
+flex-wrap:wrap;
+justify-content:flex-start;
 }
 
 .nav-links a{
-font-size:12px;
-margin:0 10px;
+font-size:11px;
+margin:5px 5px 0 0;
+padding:8px 10px;
 }
 
 .nav-right{
 order:2;
-width:100%;
-justify-content:center;
-gap:15px;
+width:calc(50% - 6px);
+justify-content:flex-end;
+gap:10px;
 }
 
 .cart-icon{
-font-size:18px;
+font-size:16px;
 }
 
 .login-btn{
-padding:8px 20px;
-font-size:12px;
+padding:7px 15px;
+font-size:11px;
 }
 
 .hero{
 padding:30px 20px;
-margin:20px;
+margin:0;
+width:100%;
+box-sizing:border-box;
 }
 
 .hero-content{
@@ -1446,6 +1459,9 @@ flex-wrap:wrap;
 
 .restaurants{
 padding:30px 20px;
+width:100%;
+box-sizing:border-box;
+overflow-x:hidden;
 }
 
 .restaurant-grid{
