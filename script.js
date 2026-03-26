@@ -166,9 +166,36 @@ if(Object.keys(cart).length === 0){
 alert("Your cart is empty!")
 return
 }
-alert("Order placed successfully!")
+
+// Get total amount
+let total = 0
+Object.values(cart).forEach(item => {
+  total += item.price * item.qty
+})
+
+// Convert cart to items array
+const cartArray = Object.values(cart).map(item => ({
+  name: item.name,
+  price: item.price,
+  qty: item.qty,
+  img: item.img
+}))
+
+// Create order and start tracking
+if(typeof createOrder === 'function'){
+  const order = createOrder(cartArray, total)
+  showNotification("Order placed successfully! 🎉")
+  
+  // Redirect to orders page after 1.5 seconds
+  setTimeout(() => {
+    window.location.href = 'orders.html?order=' + order.id
+  }, 1500)
+} else {
+  alert("Order placed successfully!")
+  showNotification("Order placed successfully! 🎉")
+}
+
 clearCart()
-showNotification("Order placed successfully! 🎉")
 }
 
 window.onload = function(){

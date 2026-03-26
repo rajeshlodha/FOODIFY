@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders - FOODIFY</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="restaurant.html">Restaurants</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="orders-section">
+<div class="orders-container">
+<h2>My Orders</h2>
+<div id="ordersContainer" class="orders-list">
+<p class="no-orders">No orders yet. Start ordering to see your orders here!</p>
+</div>
+</div>
+</section>
+
+<!-- Order Tracking Modal -->
+<div id="trackingModal" class="tracking-modal">
+<div class="tracking-content">
+<button class="close-tracking">✕</button>
+
+<div class="tracking-header">
+<h2 id="trackingOrderId">Order #12345</h2>
+<p id="trackingStatus" class="status-badge">Confirmed</p>
+</div>
+
+<!-- Map/Location Display -->
+<div class="tracking-map" id="trackingMap">
+<div class="map-placeholder">
+<div class="delivery-animation">
+<div class="delivery-person">🛵</div>
+<div class="delivery-route">
+<div class="route-dot your-location">📍 You</div>
+<div class="route-line"></div>
+<div class="route-dot restaurant">🏪</div>
+<div class="route-line"></div>
+<div class="route-dot delivery">🏠</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Order Status Timeline -->
+<div class="status-timeline">
+<div class="timeline-item completed">
+<div class="timeline-dot">✓</div>
+<div class="timeline-label">Order Confirmed</div>
+<p class="timeline-time">Just now</p>
+</div>
+
+<div class="timeline-item completed">
+<div class="timeline-dot">✓</div>
+<div class="timeline-label">Preparing</div>
+<p class="timeline-time" id="preparingTime">-</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot">🛵</div>
+<div class="timeline-label">Out for Delivery</div>
+<p class="timeline-time" id="deliveryTime">-</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot">📍</div>
+<div class="timeline-label">Delivered</div>
+<p class="timeline-time" id="deliveredTime">-</p>
+</div>
+</div>
+
+<!-- Delivery Partner Info -->
+<div class="delivery-partner-info">
+<h3>Delivery Partner</h3>
+<div class="partner-card">
+<div class="partner-avatar">🧑‍🍳</div>
+<div class="partner-details">
+<div class="partner-name" id="partnerName">Rajesh Kumar</div>
+<p class="partner-contact">
+<span class="rating">⭐ 4.8</span>
+<span class="call-btn">📞 Call</span>
+</p>
+</div>
+</div>
+</div>
+
+<!-- Estimated Time & Distance -->
+<div class="delivery-stats">
+<div class="stat-box">
+<div class="stat-icon">⏱️</div>
+<div class="stat-content">
+<p class="stat-label">Est. Arrival</p>
+<p class="stat-value" id="estimatedTime">20 mins</p>
+</div>
+</div>
+<div class="stat-box">
+<div class="stat-icon">📍</div>
+<div class="stat-content">
+<p class="stat-label">Distance</p>
+<p class="stat-value" id="distanceValue">3.5 km</p>
+</div>
+</div>
+<div class="stat-box">
+<div class="stat-icon">🎯</div>
+<div class="stat-content">
+<p class="stat-label">Speed</p>
+<p class="stat-value" id="speedValue">45 km/h</p>
+</div>
+</div>
+</div>
+
+<!-- Order Summary -->
+<div class="order-summary">
+<h3>Order Summary</h3>
+<div id="trackingSummary" class="order-items">
+<!-- Items will be populated here -->
+</div>
+<div class="order-total">
+<p>Total: <strong id="trackingTotal">₹0</strong></p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="login-modal">
+<div class="login-box">
+<div class="login-header">
+<h3>Login to Foodify</h3>
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="email" placeholder="Email or Phone" required>
+<input type="password" placeholder="Password" required>
+<button onclick="handleLogin()">Login</button>
+<p style="text-align:center; margin-top:15px; font-size:13px; color:#666;">
+Demo: Use any credentials to continue
+</p>
+</div>
+</div>
+
+<script src="script.js"></script>
+<script src="orders.js"></script>
+
+</body>
+</html>
