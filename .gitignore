@@ -1,0 +1,3 @@
+node_modules/
+foodify.db
+npm-debug.log*

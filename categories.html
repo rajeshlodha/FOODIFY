@@ -23,6 +23,8 @@
 <a href="categories.html">Categories</a>
 <a href="restaurant.html">Restaurants</a>
 <a href="orders.html">My Orders</a>
+<a href="profile.html">Profile</a>
+<a href="admin.html">Admin</a>
 </nav>
 <div class="nav-right">
 <div class="cart-icon" id="cartIcon">
@@ -90,7 +92,7 @@
 <div class="category-filters">
 <h2>Filter Results</h2>
 <div class="filter-buttons">
-<button class="filter-btn active" onclick="showAllItems()">All Items</button>
+<button class="filter-btn active" onclick="showAllItems(event)">All Items</button>
 <button class="filter-btn" onclick="filterByPrice('budget')">Budget</button>
 <button class="filter-btn" onclick="filterByPrice('mid')">Mid-Range</button>
 <button class="filter-btn" onclick="filterByPrice('premium')">Premium</button>
@@ -178,6 +180,16 @@
 </div>
 </footer>
 
+<script src="data.js"></script>
+<script>
+var foods = getAllRestaurants().flatMap(restaurant =>
+  restaurant.foods.map(food => ({
+    ...food,
+    restaurantId: restaurant.id,
+    restaurantName: restaurant.name
+  }))
+);
+</script>
 <script src="script.js"></script>
 <script src="orders.js"></script>
 <script>
@@ -189,11 +201,11 @@ currentCategory = category;
 displayFoodsByCategory(category);
 }
 
-function showAllItems() {
+function showAllItems(event) {
 currentCategory = 'all';
 currentPriceFilter = 'all';
 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-event.target.classList.add('active');
+if(event && event.target) event.target.classList.add('active');
 displayFoods(foods);
 }
 

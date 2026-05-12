@@ -20,9 +20,10 @@
 
 <nav class="nav-links">
 <a href="index.html">Home</a>
-<a href="categories.html">Categories</a>
 <a href="restaurant.html">Restaurants</a>
 <a href="orders.html">My Orders</a>
+<a href="profile.html">Profile</a>
+<a href="admin.html">Admin</a>
 </nav>
 <div class="nav-right">
 <div class="cart-icon" id="cartIcon">
@@ -41,8 +42,8 @@
 <h1>Hungry ? Just Foodify it ....</h1>
 <div class="search-box">
     <div class="search-bar">
-        <input type="text" placeholder="Search for food or restaurants..." aria-label="Search for food or restaurants">
-        <button aria-label="Search">Search</button>
+        <input type="text" id="searchInput" placeholder="Search for food or restaurants..." aria-label="Search for food or restaurants">
+        <button id="searchBtn" aria-label="Search">Search</button>
     </div>
 </div>
 </div>
@@ -359,6 +360,7 @@
 </div>
 </div>
 
+<script src="data.js"></script>
 <script src="script.js"></script>
 <script src="orders.js"></script>
 

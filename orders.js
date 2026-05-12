@@ -106,7 +106,8 @@ function simulateOrderProgress(order) {
       saveOrders();
       
       // Update UI if tracking modal is open
-      if (document.getElementById('trackingModal').classList.contains('active')) {
+      const trackingModal = document.getElementById('trackingModal');
+      if (trackingModal && trackingModal.classList.contains('active')) {
         displayOrderTracking(order);
       }
     } else {
@@ -119,7 +120,8 @@ function simulateOrderProgress(order) {
     order.updateDistance();
     saveOrders();
     
-    if (document.getElementById('trackingModal').classList.contains('active')) {
+    const trackingModal = document.getElementById('trackingModal');
+    if (trackingModal && trackingModal.classList.contains('active')) {
       displayOrderTracking(order);
     }
     
@@ -132,6 +134,7 @@ function simulateOrderProgress(order) {
 // Display all orders
 function displayOrders() {
   const container = document.getElementById('ordersContainer');
+  if (!container) return;
   
   if (allOrders.length === 0) {
     container.innerHTML = '<p class="no-orders">No orders yet. Start ordering to see your orders here!</p>';
@@ -258,11 +261,16 @@ function closeTracking() {
 
 // Initialize
 function initializeOrders() {
+  if (!document.getElementById('ordersContainer')) return;
+
   loadOrders();
   displayOrders();
   
   // Close tracking modal
-  document.querySelector('.close-tracking').addEventListener('click', closeTracking);
+  const closeButton = document.querySelector('.close-tracking');
+  if (closeButton) {
+    closeButton.addEventListener('click', closeTracking);
+  }
   
   // Start tracking for active orders
   allOrders.forEach(order => {

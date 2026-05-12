@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Details - FOODIFY</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="notification" class="notification"></div>
+
+<header class="navbar">
+<div class="nav-left">
+<div class="logo">
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
+</div>
+
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="restaurant.html">Restaurants</a>
+<a href="orders.html">My Orders</a>
+<a href="profile.html">Profile</a>
+<a href="admin.html">Admin</a>
+</nav>
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
+</header>
+
+<section class="restaurant-detail-page">
+<div id="restaurantHeader" class="restaurant-header">
+<!-- Restaurant header will be populated here -->
+</div>
+
+<div class="restaurant-detail-container">
+<div class="detail-main">
+<div class="restaurant-tabs">
+<button class="tab-btn active" data-tab="menu">Menu</button>
+<button class="tab-btn" data-tab="info">Information</button>
+<button class="tab-btn" data-tab="reviews">Reviews</button>
+</div>
+
+<!-- Menu Tab -->
+<div id="menuTab" class="detail-tab active">
+<div class="menu-categories">
+<button class="category-filter active" data-category="all">All Items</button>
+<button class="category-filter" data-category="veg">Veg Only</button>
+<button class="category-filter" data-category="non-veg">Non-Veg</button>
+</div>
+<div id="menuGrid" class="menu-grid">
+<!-- Food items will be populated here -->
+</div>
+</div>
+
+<!-- Information Tab -->
+<div id="infoTab" class="detail-tab">
+<div class="info-grid">
+<div class="info-card">
+<h3>🕒 Opening Hours</h3>
+<p id="openingHours">-</p>
+</div>
+<div class="info-card">
+<h3>📍 Address</h3>
+<p id="address">-</p>
+</div>
+<div class="info-card">
+<h3>📱 Phone</h3>
+<p id="phone">-</p>
+</div>
+<div class="info-card">
+<h3>⏱️ Delivery Time</h3>
+<p id="deliveryTime">-</p>
+</div>
+<div class="info-card">
+<h3>🚚 Delivery Fee</h3>
+<p id="deliveryFee">-</p>
+</div>
+<div class="info-card">
+<h3>💰 Minimum Order</h3>
+<p id="minimumOrder">-</p>
+</div>
+</div>
+</div>
+
+<!-- Reviews Tab -->
+<div id="reviewsTab" class="detail-tab">
+<div class="reviews-section">
+<div class="rating-summary">
+<div class="rating-number" id="ratingNumber">4.5</div>
+<div class="rating-stars">⭐⭐⭐⭐⭐</div>
+<p id="reviewCount">0 Reviews</p>
+</div>
+
+<div id="reviewsList" class="reviews-list">
+<!-- Reviews will be populated here -->
+</div>
+
+<div class="add-review-form">
+<h3>Add Your Review</h3>
+<form id="reviewForm">
+<div class="form-group">
+<label>Rating</label>
+<div class="rating-input">
+<input type="radio" name="rating" value="5" id="star5"><label for="star5">⭐</label>
+<input type="radio" name="rating" value="4" id="star4"><label for="star4">⭐</label>
+<input type="radio" name="rating" value="3" id="star3"><label for="star3">⭐</label>
+<input type="radio" name="rating" value="2" id="star2"><label for="star2">⭐</label>
+<input type="radio" name="rating" value="1" id="star1"><label for="star1">⭐</label>
+</div>
+</div>
+<div class="form-group">
+<label>Your Review</label>
+<textarea id="reviewText" placeholder="Share your experience..." required></textarea>
+</div>
+<button type="submit" class="btn-primary">Submit Review</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+<div class="detail-sidebar">
+<div class="quick-info">
+<h3>Quick Info</h3>
+<p><strong>Cuisines:</strong> <span id="cuisines">-</span></p>
+<p><strong>Open Now:</strong> <span id="openNow">-</span></p>
+<p><strong>Rating:</strong> <span id="sidebarRating">-</span></p>
+<button id="favBtn" class="btn-secondary">❤️ Add to Favorites</button>
+</div>
+</div>
+</div>
+</section>
+
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>Your Cart</h3>
+<button class="close-cart" onclick="toggleCart()">✕</button>
+</div>
+<ul id="cartItems">
+</ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+<button onclick="clearCart()">Clear Cart</button>
+</div>
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<div class="login-header">
+<h3>Login</h3>
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="orders.js"></script>
+<script>
+// Restaurant Detail Page
+let currentRestaurant = null;
+let selectedCategory = 'all';
+
+function initRestaurantDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const restaurantId = params.get('id');
+  
+  if (!restaurantId) {
+    window.location.href = 'restaurant.html';
+    return;
+  }
+  
+  currentRestaurant = getRestaurant(restaurantId);
+  
+  if (!currentRestaurant) {
+    alert('Restaurant not found');
+    window.location.href = 'restaurant.html';
+    return;
+  }
+  
+  displayRestaurantHeader();
+  displayMenu();
+  displayInfo();
+  displayReviews();
+  setupTabButtons();
+  setupCategoryFilter();
+  setupFavoriteButton();
+}
+
+function displayRestaurantHeader() {
+  const header = document.getElementById('restaurantHeader');
+  header.innerHTML = `
+    <div class="header-image">
+      <img src="${currentRestaurant.image}" alt="${currentRestaurant.name}">
+    </div>
+    <div class="header-content">
+      <h1>${currentRestaurant.name}</h1>
+      <div class="header-rating">
+        <span class="stars">⭐ ${currentRestaurant.rating}</span>
+        <span class="delivery">⏱️ ${currentRestaurant.deliveryTime}</span>
+        <span class="cuisine">${currentRestaurant.cuisine.join(' • ')}</span>
+      </div>
+    </div>
+  `;
+}
+
+function displayMenu() {
+  const menuGrid = document.getElementById('menuGrid');
+  menuGrid.innerHTML = '';
+  
+  let filteredFoods = currentRestaurant.foods;
+  
+  if (selectedCategory === 'veg') {
+    filteredFoods = filteredFoods.filter(f => f.veg);
+  } else if (selectedCategory === 'non-veg') {
+    filteredFoods = filteredFoods.filter(f => !f.veg);
+  }
+  
+  if (filteredFoods.length === 0) {
+    menuGrid.innerHTML = '<p style="grid-column: 1/-1;">No items found</p>';
+    return;
+  }
+  
+  filteredFoods.forEach((food, index) => {
+    const card = document.createElement('div');
+    card.className = 'menu-item-card';
+    card.innerHTML = `
+      <img src="${food.img}" alt="${food.name}">
+      <div class="item-info">
+        <h4>${food.name}</h4>
+        <p class="item-type">${food.veg ? '🥬 Vegetarian' : '🍗 Non-Vegetarian'}</p>
+        <p class="item-price">₹${food.price}</p>
+        <div class="item-actions">
+          <button onclick="addFoodItem('${food.name.replace(/'/g, "\\'")}', ${food.price}, '${food.img.replace(/'/g, "\\'")}')" class="btn-primary btn-small">Add to Cart</button>
+        </div>
+      </div>
+    `;
+    menuGrid.appendChild(card);
+  });
+}
+
+function addFoodItem(name, price, img) {
+  if (cart[name]) {
+    cart[name].qty++;
+  } else {
+    cart[name] = { name, price, qty: 1, img, category: 'food' };
+  }
+  updateCart();
+  showNotification(`${name} added to cart!`);
+}
+
+function displayInfo() {
+  document.getElementById('openingHours').textContent = currentRestaurant.openingHours;
+  document.getElementById('address').textContent = currentRestaurant.address;
+  document.getElementById('phone').textContent = currentRestaurant.phone;
+  document.getElementById('deliveryTime').textContent = currentRestaurant.deliveryTime;
+  document.getElementById('deliveryFee').textContent = '₹' + currentRestaurant.deliveryFee;
+  document.getElementById('minimumOrder').textContent = '₹' + currentRestaurant.minOrder;
+  document.getElementById('cuisines').textContent = currentRestaurant.cuisine.join(', ');
+  document.getElementById('openNow').textContent = currentRestaurant.isOpen ? '✓ Yes' : '✗ No';
+  document.getElementById('sidebarRating').textContent = currentRestaurant.rating + ' ⭐';
+}
+
+function displayReviews() {
+  const reviewsList = document.getElementById('reviewsList');
+  
+  if (currentRestaurant.reviews.length === 0) {
+    reviewsList.innerHTML = '<p class="no-reviews">No reviews yet. Be the first to review!</p>';
+    return;
+  }
+  
+  let html = '';
+  currentRestaurant.reviews.forEach(review => {
+    html += `
+      <div class="review-item">
+        <div class="review-header">
+          <h4>${review.user}</h4>
+          <span class="review-date">${new Date(review.date).toLocaleDateString()}</span>
+        </div>
+        <div class="review-rating">
+          ${'⭐'.repeat(review.rating)}
+        </div>
+        <p class="review-text">${review.text}</p>
+      </div>
+    `;
+  });
+  
+  reviewsList.innerHTML = html;
+  document.getElementById('ratingNumber').textContent = currentRestaurant.rating;
+  document.getElementById('reviewCount').textContent = currentRestaurant.reviews.length + ' Reviews';
+}
+
+function setupTabButtons() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+      
+      e.target.classList.add('active');
+      const tabId = e.target.dataset.tab;
+      document.getElementById(tabId + 'Tab').classList.add('active');
+    });
+  });
+}
+
+function setupCategoryFilter() {
+  document.querySelectorAll('.category-filter').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      selectedCategory = e.target.dataset.category;
+      displayMenu();
+    });
+  });
+}
+
+function setupFavoriteButton() {
+  const favBtn = document.getElementById('favBtn');
+  const favorites = JSON.parse(localStorage.getItem('favorites') || '{"restaurants":[], "foods":[]}');
+  const isFav = favorites.restaurants && favorites.restaurants.includes(currentRestaurant.id);
+  
+  if (isFav) {
+    favBtn.textContent = '❤️ Remove from Favorites';
+    favBtn.classList.add('active');
+  }
+  
+  favBtn.addEventListener('click', () => {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '{"restaurants":[], "foods":[]}');
+    if (!favorites.restaurants) favorites.restaurants = [];
+    
+    const index = favorites.restaurants.indexOf(currentRestaurant.id);
+    if (index > -1) {
+      favorites.restaurants.splice(index, 1);
+      favBtn.textContent = '🤍 Add to Favorites';
+      favBtn.classList.remove('active');
+    } else {
+      favorites.restaurants.push(currentRestaurant.id);
+      favBtn.textContent = '❤️ Remove from Favorites';
+      favBtn.classList.add('active');
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    showNotification('Favorite updated!');
+  });
+}
+
+document.getElementById('reviewForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const rating = document.querySelector('input[name="rating"]:checked').value;
+  const text = document.getElementById('reviewText').value;
+  
+  const review = {
+    user: 'Anonymous User',
+    rating: parseInt(rating),
+    text: text,
+    date: new Date().toISOString()
+  };
+  
+  currentRestaurant.reviews.push(review);
+  displayReviews();
+  document.getElementById('reviewForm').reset();
+  showNotification('Review submitted successfully!');
+});
+
+window.addEventListener('load', initRestaurantDetail);
+</script>
+</body>
+</html>

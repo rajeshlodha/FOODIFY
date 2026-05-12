@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Your Cart</title>
+<title>Your Cart - FOODIFY</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -11,40 +11,374 @@
 
 <body>
 
+<div id="notification" class="notification"></div>
+
 <header class="navbar">
 
+<div class="nav-left">
 <div class="logo">
-<img src="images/logo.png">
-<span>Foodify</span>
+<img src="images/logo.jpg" alt="Foodify Logo">
+</div>
 </div>
 
 <nav class="nav-links">
 <a href="index.html">Home</a>
 <a href="restaurant.html">Restaurants</a>
-<a href="index.html#categories">Categories</a>
+<a href="orders.html">My Orders</a>
+<a href="profile.html">Profile</a>
+<a href="admin.html">Admin</a>
 </nav>
+
+<div class="nav-right">
+<div class="cart-icon" id="cartIcon">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+<button class="login-btn" id="loginBtn">Login</button>
+</div>
 
 </header>
 
 
-<section class="cart-page">
+<section class="checkout-page">
 
-<h2>Your Cart</h2>
+<div class="checkout-container">
+<div class="checkout-main">
+<h1>Order Summary</h1>
 
-<ul id="cartItems"></ul>
+<!-- Cart Items Section -->
+<div class="checkout-section">
+<h2>Order Items</h2>
+<ul id="cartItems" class="cart-items-list"></ul>
+</div>
 
-<div class="cart-summary">
+<!-- Delivery Address Section -->
+<div class="checkout-section">
+<h2>Delivery Address</h2>
+<div id="addressSelector" class="address-selector">
+<!-- Saved addresses will be populated here -->
+</div>
+<button id="changeAddressBtn" class="btn-secondary">+ Change Address</button>
+</div>
 
-<h3>Total: ₹<span id="total">0</span></h3>
+<!-- Delivery Instructions Section -->
+<div class="checkout-section">
+<h2>Delivery Instructions</h2>
+<textarea id="deliveryInstructions" placeholder="Add special instructions for delivery (e.g., Ring the bell, Leave at door)" class="textarea-input"></textarea>
+</div>
 
-<button onclick="checkout()">Checkout</button>
+<!-- Coupon Code Section -->
+<div class="checkout-section">
+<h2>Apply Coupon Code</h2>
+<div class="coupon-input-group">
+<input type="text" id="couponCode" placeholder="Enter coupon code" class="coupon-input">
+<button id="applyCouponBtn" class="btn-secondary">Apply</button>
+<button id="removeCouponBtn" class="btn-secondary" style="display:none;">Remove</button>
+</div>
+<div id="couponMessage" class="coupon-message"></div>
+<div id="availableCoupons" class="available-coupons">
+<p class="coupons-title">Available Coupons:</p>
+<div class="coupons-grid">
+<!-- Coupons will be displayed here -->
+</div>
+</div>
+</div>
 
+<!-- Payment Method Section -->
+<div class="checkout-section">
+<h2>Payment Method</h2>
+<div class="payment-options">
+<label class="payment-option">
+<input type="radio" name="payment" value="card" checked>
+<span>💳 Credit/Debit Card</span>
+</label>
+<label class="payment-option">
+<input type="radio" name="payment" value="upi">
+<span>📱 UPI</span>
+</label>
+<label class="payment-option">
+<input type="radio" name="payment" value="wallet">
+<span>💰 Wallet</span>
+</label>
+<label class="payment-option">
+<input type="radio" name="payment" value="cod">
+<span>🏪 Cash on Delivery</span>
+</label>
+</div>
+</div>
+</div>
+
+<!-- Order Summary Sidebar -->
+<div class="order-summary">
+<h2>Order Total</h2>
+
+<div class="summary-item">
+<span>Subtotal</span>
+<span id="subtotal">₹0</span>
+</div>
+
+<div class="summary-item">
+<span>Delivery Fee</span>
+<span id="deliveryFee">₹0</span>
+</div>
+
+<div class="summary-item" id="discountRow" style="display:none;">
+<span>Discount</span>
+<span id="discount" class="discount-amount">-₹0</span>
+</div>
+
+<div class="summary-item" id="taxRow" style="display:none;">
+<span>Taxes & Charges</span>
+<span id="tax">₹0</span>
+</div>
+
+<div class="summary-divider"></div>
+
+<div class="summary-total">
+<span>Total Amount</span>
+<span id="totalAmount">₹0</span>
+</div>
+
+<button id="placeOrderBtn" class="btn-primary btn-large" onclick="placeOrder()">Place Order</button>
+<a href="restaurant.html" class="btn-secondary btn-large" style="display:block;text-align:center;text-decoration:none;">Continue Shopping</a>
+</div>
 </div>
 
 </section>
 
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<div class="login-header">
+<h3>Login</h3>
+<button class="modal-close" onclick="closeLogin()">✕</button>
+</div>
+<input type="text" placeholder="Username" required aria-label="Username">
+<input type="password" placeholder="Password" required aria-label="Password">
+<button onclick="closeLogin()">Login</button>
+</div>
+</div>
 
+<script src="data.js"></script>
 <script src="script.js"></script>
+<script src="orders.js"></script>
+<script>
+// Checkout Page Logic
+let appliedCoupon = null;
+const DELIVERY_FEE = 40;
+const TAX_RATE = 0.05;
+
+function initCheckoutPage() {
+  updateCartDisplay();
+  displayAvailableCoupons();
+  displayAddresses();
+  setupEventListeners();
+}
+
+function setupEventListeners() {
+  document.getElementById('applyCouponBtn').addEventListener('click', applyCoupon);
+  document.getElementById('removeCouponBtn').addEventListener('click', removeCoupon);
+  document.getElementById('changeAddressBtn').addEventListener('click', changeAddress);
+}
+
+function updateCartDisplay() {
+  const cartItems = document.getElementById('cartItems');
+  cartItems.innerHTML = '';
+  
+  let subtotal = 0;
+  
+  Object.values(cart).forEach(item => {
+    const itemTotal = item.price * item.qty;
+    subtotal += itemTotal;
+    
+    const li = document.createElement('li');
+    li.className = 'cart-item-checkout';
+    li.innerHTML = `
+      <div class="item-details">
+        <span class="item-name">${item.name}</span>
+        <span class="item-qty">x${item.qty}</span>
+      </div>
+      <span class="item-price">₹${itemTotal}</span>
+    `;
+    cartItems.appendChild(li);
+  });
+  
+  updateOrderTotal(subtotal);
+}
+
+function updateOrderTotal(subtotal) {
+  const discount = appliedCoupon ? calculateDiscount(appliedCoupon, subtotal) : 0;
+  const deliveryFee = DELIVERY_FEE;
+  const taxableAmount = subtotal - discount;
+  const tax = Math.floor(taxableAmount * TAX_RATE);
+  const total = subtotal - discount + deliveryFee + tax;
+  
+  document.getElementById('subtotal').textContent = '₹' + subtotal;
+  document.getElementById('deliveryFee').textContent = '₹' + deliveryFee;
+  document.getElementById('totalAmount').textContent = '₹' + total;
+  
+  if (discount > 0) {
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('discount').textContent = '-₹' + discount;
+  }
+  
+  if (tax > 0) {
+    document.getElementById('taxRow').style.display = 'flex';
+    document.getElementById('tax').textContent = '₹' + tax;
+  }
+  
+  // Store for later use
+  window.orderTotal = { subtotal, discount, deliveryFee, tax, total };
+}
+
+function displayAvailableCoupons() {
+  const couponsGrid = document.querySelector('.coupons-grid');
+  couponsGrid.innerHTML = '';
+  
+  for (const [code, coupon] of Object.entries(coupons)) {
+    const div = document.createElement('div');
+    div.className = 'coupon-card';
+    div.innerHTML = `
+      <div class="coupon-code">${code}</div>
+      <p class="coupon-desc">${coupon.description}</p>
+      <small>Min order: ₹${coupon.minOrder}</small>
+      <button onclick="quickApplyCoupon('${code}')" class="btn-small">Apply</button>
+    `;
+    couponsGrid.appendChild(div);
+  }
+}
+
+function quickApplyCoupon(code) {
+  document.getElementById('couponCode').value = code;
+  applyCoupon();
+}
+
+function applyCoupon() {
+  const code = document.getElementById('couponCode').value.toUpperCase().trim();
+  const subtotal = parseInt(document.getElementById('subtotal').textContent.replace('₹', ''));
+  
+  if (!code) {
+    showNotification('Please enter a coupon code');
+    return;
+  }
+  
+  const validation = validateCoupon(code, subtotal);
+  const messageDiv = document.getElementById('couponMessage');
+  
+  if (validation.valid) {
+    appliedCoupon = validation.coupon;
+    messageDiv.innerHTML = `<p class="success">✓ Coupon applied! You save ₹${calculateDiscount(validation.coupon, subtotal)}</p>`;
+    messageDiv.className = 'coupon-message success';
+    document.getElementById('applyCouponBtn').style.display = 'none';
+    document.getElementById('removeCouponBtn').style.display = 'block';
+    updateOrderTotal(subtotal);
+    showNotification('Coupon applied successfully!');
+  } else {
+    messageDiv.innerHTML = `<p class="error">✗ ${validation.message}</p>`;
+    messageDiv.className = 'coupon-message error';
+    appliedCoupon = null;
+  }
+}
+
+function removeCoupon() {
+  appliedCoupon = null;
+  document.getElementById('couponCode').value = '';
+  document.getElementById('couponMessage').innerHTML = '';
+  document.getElementById('applyCouponBtn').style.display = 'block';
+  document.getElementById('removeCouponBtn').style.display = 'none';
+  
+  const subtotal = parseInt(document.getElementById('subtotal').textContent.replace('₹', ''));
+  updateOrderTotal(subtotal);
+  showNotification('Coupon removed');
+}
+
+function displayAddresses() {
+  const userProfile = JSON.parse(localStorage.getItem('userProfile') || JSON.stringify(defaultUser));
+  const selector = document.getElementById('addressSelector');
+  
+  if (!userProfile.addresses || userProfile.addresses.length === 0) {
+    selector.innerHTML = '<p class="no-address">No saved addresses. <a href="profile.html">Add one now</a></p>';
+    return;
+  }
+  
+  selector.innerHTML = '';
+  userProfile.addresses.forEach(address => {
+    const div = document.createElement('div');
+    div.className = 'address-option ' + (address.isDefault ? 'selected' : '');
+    div.innerHTML = `
+      <input type="radio" name="address" value="${address.id}" ${address.isDefault ? 'checked' : ''}>
+      <div class="address-details">
+        <h4>${address.type.toUpperCase()}</h4>
+        <p>${address.fullAddress}</p>
+        ${address.isDefault ? '<span class="default-label">Default Address</span>' : ''}
+      </div>
+    `;
+    selector.appendChild(div);
+  });
+}
+
+function changeAddress() {
+  alert('Redirecting to profile to manage addresses...');
+  window.location.href = 'profile.html#addressesTab';
+}
+
+function placeOrder() {
+  const userProfile = JSON.parse(localStorage.getItem('userProfile') || JSON.stringify(defaultUser));
+  const selectedAddress = document.querySelector('input[name="address"]:checked');
+  const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+  const instructions = document.getElementById('deliveryInstructions').value;
+  
+  if (!userProfile.addresses || userProfile.addresses.length === 0) {
+    showNotification('Please add a delivery address first');
+    return;
+  }
+  
+  if (!selectedAddress) {
+    showNotification('Please select a delivery address');
+    return;
+  }
+  
+  const orderData = {
+    items: Object.values(cart),
+    total: window.orderTotal.total,
+    subtotal: window.orderTotal.subtotal,
+    discount: window.orderTotal.discount,
+    deliveryFee: window.orderTotal.deliveryFee,
+    tax: window.orderTotal.tax,
+    address: userProfile.addresses.find(a => a.id == selectedAddress.value),
+    paymentMethod: paymentMethod,
+    couponCode: appliedCoupon ? appliedCoupon.code : null,
+    instructions: instructions
+  };
+  
+  // Save order to previous orders
+  if (!userProfile.previousOrders) {
+    userProfile.previousOrders = [];
+  }
+  
+  userProfile.previousOrders.unshift({
+    id: 'ORD' + Date.now(),
+    date: new Date().toISOString(),
+    items: orderData.items,
+    total: orderData.total,
+    restaurant: 'Multiple Restaurants',
+    status: 'Confirmed'
+  });
+  
+  localStorage.setItem('userProfile', JSON.stringify(userProfile));
+  
+  // Create the order
+  if (typeof createOrder === 'function') {
+    const order = createOrder(orderData.items, orderData.total);
+    showNotification('Order placed successfully! 🎉');
+    clearCart();
+    setTimeout(() => {
+      window.location.href = 'orders.html?order=' + order.id;
+    }, 1500);
+  }
+}
+
+window.addEventListener('load', initCheckoutPage);
+</script>
 
 </body>
 </html>
