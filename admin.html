@@ -5,6 +5,727 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel - FOODIFY</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* ===== ADMIN PAGE REDESIGN ===== */
+.admin-panel {
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+  min-height: calc(100vh - 70px);
+  display: flex;
+}
+
+.admin-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+/* Sidebar */
+.admin-sidebar {
+  background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+.admin-brand {
+  padding: 0 8px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 20px;
+}
+
+.admin-brand-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+
+.admin-brand-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.admin-brand-title span {
+  color: #FF4D3D;
+}
+
+.admin-nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.3);
+  padding: 0 8px;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  transition: all 0.22s ease;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+.admin-menu-item-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.admin-menu-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+}
+
+.admin-menu-item.active {
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(255, 77, 61, 0.35);
+}
+
+/* Main Content */
+.admin-content {
+  background: #f8f9fc;
+  padding: 36px 40px;
+  overflow-y: auto;
+}
+
+.admin-section {
+  display: none;
+}
+
+.admin-section.active {
+  display: block;
+}
+
+.admin-section-header {
+  margin-bottom: 32px;
+}
+
+.admin-section h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.admin-section-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  border-radius: 16px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.stat-card:nth-child(1) {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+
+.stat-icon {
+  font-size: 22px;
+  margin-bottom: 12px;
+  display: block;
+  opacity: 0.9;
+}
+
+.stat-card h3 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.85;
+}
+
+.stat-value {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+/* Restaurant Selector */
+.menu-controls {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-select-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.filter-select,
+.search-input {
+  padding: 11px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.filter-select:focus,
+.search-input:focus {
+  outline: none;
+  border-color: #FF4D3D;
+  box-shadow: 0 0 0 3px rgba(255, 77, 61, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Info Banner */
+.admin-info {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.05) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 16px 20px;
+  border-radius: 12px;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Menu Table */
+.menu-table-wrapper {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.menu-table thead {
+  background: #f8f9fc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.menu-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b;
+}
+
+.menu-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+}
+
+.menu-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.menu-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.available {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-badge.unavailable {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Action Buttons */
+.btn-small {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid #6366f1;
+  background: white;
+  color: #6366f1;
+  margin-right: 6px;
+}
+
+.btn-small:hover {
+  background: #6366f1;
+  color: white;
+}
+
+.btn-small.btn-danger {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: white;
+}
+
+.btn-small.btn-danger:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Add Item Form */
+.admin-form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  max-width: 680px;
+}
+
+.admin-form-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-form {
+  max-width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #FF4D3D;
+  box-shadow: 0 0 0 4px rgba(255, 77, 61, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.admin-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: #f8f9fc;
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.admin-checkbox-group:hover {
+  border-color: #FF4D3D;
+}
+
+.admin-checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #FF4D3D;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-checkbox-group label {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+  color: #374151;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(255, 77, 61, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 77, 61, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+/* Orders */
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.order-header h4 {
+  margin: 0 0 3px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.order-restaurant {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.order-status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #dcfce7;
+  color: #16a34a;
+  white-space: nowrap;
+}
+
+.order-items-preview {
+  margin: 10px 0;
+}
+
+.order-items-preview p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.order-footer span:first-child {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 60px;
+  color: #94a3b8;
+  font-size: 15px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* Settings */
+.settings-form {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  max-width: 600px;
+}
+
+.settings-form h2 {
+  margin: 0 0 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+/* Edit Modal */
+.admin-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.modal-close {
+  background: #f1f5f9;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #FF4D3D;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-panel {
+    flex-direction: column;
+  }
+
+  .admin-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .admin-sidebar {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .admin-brand {
+    display: none;
+  }
+
+  .admin-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin-menu-item {
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
+    padding: 10px 8px;
+  }
+
+  .admin-menu-item-label {
+    display: none;
+  }
+
+  .admin-content {
+    padding: 24px 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-card {
+    padding: 20px;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -15,9 +736,7 @@
 <div class="logo">
 <img src="images/logo.jpg" alt="Foodify Logo">
 </div>
-<span style="margin-left:20px; color:#FF4D3D; font-weight:bold;">Admin Panel</span>
 </div>
-
 <nav class="nav-links">
 <a href="index.html">Home</a>
 </nav>
@@ -27,221 +746,251 @@
 </header>
 
 <section class="admin-panel">
-<div class="admin-container">
-<div class="admin-sidebar">
-<div class="admin-menu">
-<button class="admin-menu-item active" data-section="dashboard">📊 Dashboard</button>
-<button class="admin-menu-item" data-section="menu">🍽️ Manage Menu</button>
-<button class="admin-menu-item" data-section="add-item">➕ Add Menu Item</button>
-<button class="admin-menu-item" data-section="orders">📦 Orders</button>
-<button class="admin-menu-item" data-section="settings">⚙️ Settings</button>
-</div>
-</div>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+      <div class="admin-brand">
+        <p class="admin-brand-label">Control Panel</p>
+        <p class="admin-brand-title">FOOD<span>IFY</span></p>
+      </div>
+      <p class="admin-nav-label">Navigation</p>
+      <div class="admin-menu">
+        <button class="admin-menu-item active" data-section="dashboard">
+          <span class="admin-menu-item-icon">📊</span>
+          <span class="admin-menu-item-label">Dashboard</span>
+        </button>
+        <button class="admin-menu-item" data-section="menu">
+          <span class="admin-menu-item-icon">🍽️</span>
+          <span class="admin-menu-item-label">Manage Menu</span>
+        </button>
+        <button class="admin-menu-item" data-section="add-item">
+          <span class="admin-menu-item-icon">➕</span>
+          <span class="admin-menu-item-label">Add Item</span>
+        </button>
+        <button class="admin-menu-item" data-section="orders">
+          <span class="admin-menu-item-icon">📦</span>
+          <span class="admin-menu-item-label">Orders</span>
+        </button>
+        <button class="admin-menu-item" data-section="settings">
+          <span class="admin-menu-item-icon">⚙️</span>
+          <span class="admin-menu-item-label">Settings</span>
+        </button>
+      </div>
+    </div>
 
-<div class="admin-content">
-<!-- Dashboard Section -->
-<div id="dashboardSection" class="admin-section active">
-<h1>Restaurant Dashboard</h1>
-<div class="menu-controls">
-<label for="restaurantSelector" class="admin-select-label">Manage restaurant</label>
-<select id="restaurantSelector" class="filter-select"></select>
-</div>
-<div class="stats-grid">
-<div class="stat-card">
-<h3>Total Menu Items</h3>
-<p class="stat-value" id="totalItems">0</p>
-</div>
-<div class="stat-card">
-<h3>Available Items</h3>
-<p class="stat-value" id="availableItems">0</p>
-</div>
-<div class="stat-card">
-<h3>Unavailable Items</h3>
-<p class="stat-value" id="unavailableItems">0</p>
-</div>
-<div class="stat-card">
-<h3>Average Rating</h3>
-<p class="stat-value" id="avgRating">0</p>
-</div>
-</div>
-<p class="admin-info">Select "Manage Menu" to edit items or "Add Menu Item" to add new dishes.</p>
-</div>
+    <!-- Main Content -->
+    <div class="admin-content">
 
-<!-- Manage Menu Section -->
-<div id="menuSection" class="admin-section">
-<h1>Manage Menu Items</h1>
-<div class="menu-controls">
-<input type="text" id="searchMenuItem" placeholder="Search items..." class="search-input">
-<select id="filterAvailability" class="filter-select">
-<option value="">All Items</option>
-<option value="available">Available</option>
-<option value="unavailable">Unavailable</option>
-</select>
-</div>
+      <!-- Dashboard Section -->
+      <div id="dashboardSection" class="admin-section active">
+        <div class="admin-section-header">
+          <h1>Restaurant Dashboard</h1>
+          <p class="admin-section-subtitle">Overview of your restaurant performance</p>
+        </div>
+        <div class="menu-controls">
+          <label for="restaurantSelector" class="admin-select-label">Active Restaurant:</label>
+          <select id="restaurantSelector" class="filter-select"></select>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-icon">🍱</span>
+            <h3>Total Menu Items</h3>
+            <p class="stat-value" id="totalItems">0</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <h3>Available Items</h3>
+            <p class="stat-value" id="availableItems">0</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⏸️</span>
+            <h3>Unavailable</h3>
+            <p class="stat-value" id="unavailableItems">0</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <h3>Average Rating</h3>
+            <p class="stat-value" id="avgRating">0</p>
+          </div>
+        </div>
+        <p class="admin-info">💡 Select <strong>Manage Menu</strong> to edit items or <strong>Add Item</strong> to add new dishes to your menu.</p>
+      </div>
 
-<table class="menu-table">
-<thead>
-<tr>
-<th>Item Name</th>
-<th>Category</th>
-<th>Price</th>
-<th>Type</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody id="menuTableBody">
-<!-- Menu items will be populated here -->
-</tbody>
-</table>
-</div>
+      <!-- Manage Menu Section -->
+      <div id="menuSection" class="admin-section">
+        <div class="admin-section-header">
+          <h1>Manage Menu Items</h1>
+          <p class="admin-section-subtitle">Edit, remove, or update your menu offerings</p>
+        </div>
+        <div class="menu-controls">
+          <input type="text" id="searchMenuItem" placeholder="🔍 Search menu items..." class="search-input">
+          <select id="filterAvailability" class="filter-select">
+            <option value="">All Items</option>
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </div>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="menuTableBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-<!-- Add Menu Item Section -->
-<div id="addItemSection" class="admin-section">
-<h1>Add New Menu Item</h1>
-<form id="addItemForm" class="admin-form">
-<div class="form-row">
-<div class="form-group">
-<label>Item Name *</label>
-<input type="text" id="itemName" placeholder="Enter item name" required>
-</div>
-<div class="form-group">
-<label>Category *</label>
-<select id="itemCategory" required>
-<option value="">Select Category</option>
-<option value="appetizer">Appetizer</option>
-<option value="main">Main Course</option>
-<option value="dessert">Dessert</option>
-<option value="drinks">Drinks</option>
-<option value="sides">Sides</option>
-<option value="breakfast">Breakfast</option>
-</select>
-</div>
-</div>
+      <!-- Add Menu Item Section -->
+      <div id="addItemSection" class="admin-section">
+        <div class="admin-section-header">
+          <h1>Add New Menu Item</h1>
+          <p class="admin-section-subtitle">Fill in the details to add a new dish</p>
+        </div>
+        <div class="admin-form-card">
+          <p class="admin-form-section-title">Basic Information</p>
+          <form id="addItemForm" class="admin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Item Name *</label>
+                <input type="text" id="itemName" placeholder="e.g. Margherita Pizza" required>
+              </div>
+              <div class="form-group">
+                <label>Category *</label>
+                <select id="itemCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="appetizer">Appetizer</option>
+                  <option value="main">Main Course</option>
+                  <option value="dessert">Dessert</option>
+                  <option value="drinks">Drinks</option>
+                  <option value="sides">Sides</option>
+                  <option value="breakfast">Breakfast</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Price (₹) *</label>
+                <input type="number" id="itemPrice" placeholder="0" min="0" required>
+              </div>
+              <div class="form-group">
+                <label>Item Type *</label>
+                <select id="itemType" required>
+                  <option value="">Select Type</option>
+                  <option value="veg">🥬 Vegetarian</option>
+                  <option value="non-veg">🍗 Non-Vegetarian</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Image URL</label>
+              <input type="url" id="itemImage" placeholder="https://example.com/image.jpg">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="itemDescription" placeholder="Describe the dish (optional)"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="admin-checkbox-group">
+                <input type="checkbox" id="itemAvailable" checked>
+                <label for="itemAvailable">Mark as Available immediately</label>
+              </div>
+            </div>
+            <button type="submit" class="btn-primary">➕ Add to Menu</button>
+          </form>
+        </div>
+      </div>
 
-<div class="form-row">
-<div class="form-group">
-<label>Price (₹) *</label>
-<input type="number" id="itemPrice" placeholder="Enter price" min="0" required>
-</div>
-<div class="form-group">
-<label>Item Type *</label>
-<select id="itemType" required>
-<option value="">Select Type</option>
-<option value="veg">🥬 Vegetarian</option>
-<option value="non-veg">🍗 Non-Vegetarian</option>
-</select>
-</div>
-</div>
+      <!-- Orders Section -->
+      <div id="ordersSection" class="admin-section">
+        <div class="admin-section-header">
+          <h1>Recent Orders</h1>
+          <p class="admin-section-subtitle">All customer orders placed through Foodify</p>
+        </div>
+        <div id="ordersList" class="orders-list"></div>
+      </div>
 
-<div class="form-group">
-<label>Image URL</label>
-<input type="url" id="itemImage" placeholder="Enter image URL">
-</div>
+      <!-- Settings Section -->
+      <div id="settingsSection" class="admin-section">
+        <div class="admin-section-header">
+          <h1>Restaurant Settings</h1>
+          <p class="admin-section-subtitle">Configure your restaurant's details and policies</p>
+        </div>
+        <div class="settings-form">
+          <h2>Restaurant Information</h2>
+          <div class="form-group">
+            <label>Restaurant Name</label>
+            <input type="text" id="restaurantName" placeholder="Enter restaurant name">
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <textarea id="restaurantAddress" placeholder="Enter full address"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="restaurantPhone" placeholder="Enter phone number">
+          </div>
+          <div class="form-group">
+            <label>Opening Hours</label>
+            <input type="text" id="openingHours" placeholder="e.g., 9:00 AM – 11:00 PM">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Delivery Fee (₹)</label>
+              <input type="number" id="deliveryFee" placeholder="0" min="0">
+            </div>
+            <div class="form-group">
+              <label>Minimum Order (₹)</label>
+              <input type="number" id="minimumOrder" placeholder="0" min="0">
+            </div>
+          </div>
+          <button onclick="saveRestaurantSettings()" class="btn-primary">💾 Save Settings</button>
+        </div>
+      </div>
 
-<div class="form-group">
-<label>Description</label>
-<textarea id="itemDescription" placeholder="Item description (optional)"></textarea>
-</div>
-
-<div class="form-group">
-<label>
-<input type="checkbox" id="itemAvailable" checked> Available
-</label>
-</div>
-
-<button type="submit" class="btn-primary">Add Item</button>
-</form>
-</div>
-
-<!-- Orders Section -->
-<div id="ordersSection" class="admin-section">
-<h1>Recent Orders</h1>
-<div id="ordersList" class="orders-list">
-<!-- Orders will be populated here -->
-</div>
-</div>
-
-<!-- Settings Section -->
-<div id="settingsSection" class="admin-section">
-<h1>Restaurant Settings</h1>
-
-<div class="settings-form">
-<h2>Restaurant Information</h2>
-<div class="form-group">
-<label>Restaurant Name</label>
-<input type="text" id="restaurantName" placeholder="Enter restaurant name">
-</div>
-
-<div class="form-group">
-<label>Address</label>
-<textarea id="restaurantAddress" placeholder="Enter address"></textarea>
-</div>
-
-<div class="form-group">
-<label>Phone Number</label>
-<input type="tel" id="restaurantPhone" placeholder="Enter phone number">
-</div>
-
-<div class="form-group">
-<label>Opening Hours</label>
-<input type="text" id="openingHours" placeholder="e.g., 9:00 AM - 11:00 PM">
-</div>
-
-<div class="form-group">
-<label>Delivery Fee (₹)</label>
-<input type="number" id="deliveryFee" placeholder="Enter delivery fee" min="0">
-</div>
-
-<div class="form-group">
-<label>Minimum Order (₹)</label>
-<input type="number" id="minimumOrder" placeholder="Enter minimum order value" min="0">
-</div>
-
-<button onclick="saveRestaurantSettings()" class="btn-primary">Save Settings</button>
-</div>
-</div>
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
+<!-- Edit Modal -->
 <div class="admin-modal" id="editModal" style="display:none;">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Edit Menu Item</h3>
-<button class="modal-close" onclick="closeEditModal()">✕</button>
-</div>
-
-<form id="editForm" class="admin-form">
-<input type="hidden" id="editItemId">
-
-<div class="form-group">
-<label>Item Name</label>
-<input type="text" id="editItemName" required>
-</div>
-
-<div class="form-group">
-<label>Price (₹)</label>
-<input type="number" id="editItemPrice" min="0" required>
-</div>
-
-<div class="form-group">
-<label>Item Type</label>
-<select id="editItemType" required>
-<option value="veg">🥬 Vegetarian</option>
-<option value="non-veg">🍗 Non-Vegetarian</option>
-</select>
-</div>
-
-<div class="form-group">
-<label>
-<input type="checkbox" id="editItemAvailable"> Available
-</label>
-</div>
-
-<button type="submit" class="btn-primary">Update Item</button>
-</form>
-</div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Edit Menu Item</h3>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <form id="editForm" class="admin-form">
+      <input type="hidden" id="editItemId">
+      <div class="form-group">
+        <label>Item Name</label>
+        <input type="text" id="editItemName" required>
+      </div>
+      <div class="form-group">
+        <label>Price (₹)</label>
+        <input type="number" id="editItemPrice" min="0" required>
+      </div>
+      <div class="form-group">
+        <label>Item Type</label>
+        <select id="editItemType" required>
+          <option value="veg">🥬 Vegetarian</option>
+          <option value="non-veg">🍗 Non-Vegetarian</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="admin-checkbox-group">
+          <input type="checkbox" id="editItemAvailable">
+          <label for="editItemAvailable">Mark as Available</label>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;">💾 Update Item</button>
+    </form>
+  </div>
 </div>
 
 <script src="data.js"></script>
@@ -259,7 +1008,6 @@ const sectionMap = {
 };
 
 function initAdminPanel() {
-  // Check if logged in as admin
   if (!sessionStorage.getItem('adminLoggedIn')) {
     const password = prompt('Enter admin password:');
     if (password === 'admin123') {
@@ -270,7 +1018,7 @@ function initAdminPanel() {
       return;
     }
   }
-  
+
   restoreAdminRestaurantData();
   populateRestaurantSelector();
   setupSectionButtons();
@@ -278,7 +1026,7 @@ function initAdminPanel() {
   loadDashboard();
   loadRestaurantSettings();
   loadOrdersList();
-  
+
   document.getElementById('logoutBtn').addEventListener('click', () => {
     sessionStorage.removeItem('adminLoggedIn');
     window.location.href = 'index.html';
@@ -288,15 +1036,14 @@ function initAdminPanel() {
 function setupSectionButtons() {
   document.querySelectorAll('.admin-menu-item').forEach(btn => {
     btn.addEventListener('click', (e) => {
+      const clickedBtn = e.target.closest('.admin-menu-item');
+      if (!clickedBtn) return;
       document.querySelectorAll('.admin-menu-item').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-      
-      e.target.classList.add('active');
-      const sectionId = e.target.dataset.section;
+      clickedBtn.classList.add('active');
+      const sectionId = clickedBtn.dataset.section;
       const section = document.getElementById(sectionMap[sectionId]);
-      if (section) {
-        section.classList.add('active');
-      }
+      if (section) section.classList.add('active');
     });
   });
 }
@@ -314,12 +1061,12 @@ function setupFormHandlers() {
     e.preventDefault();
     addMenuItem();
   });
-  
+
   document.getElementById('editForm').addEventListener('submit', (e) => {
     e.preventDefault();
     updateMenuItem();
   });
-  
+
   document.getElementById('searchMenuItem').addEventListener('input', filterMenuItems);
   document.getElementById('filterAvailability').addEventListener('change', filterMenuItems);
 }
@@ -342,7 +1089,6 @@ function populateRestaurantSelector() {
   if (!getRestaurant(currentRestaurant)) {
     currentRestaurant = getAllRestaurants()[0].id;
   }
-
   selector.value = currentRestaurant;
 }
 
@@ -351,29 +1097,27 @@ function loadDashboard() {
   if (restaurant) {
     const totalItems = restaurant.foods.length;
     const available = restaurant.foods.filter(f => f.available).length;
-    
     document.getElementById('totalItems').textContent = totalItems;
     document.getElementById('availableItems').textContent = available;
     document.getElementById('unavailableItems').textContent = totalItems - available;
     document.getElementById('avgRating').textContent = restaurant.rating;
   }
-  
   loadMenuTable();
 }
 
 function loadMenuTable() {
   const restaurant = getRestaurant(currentRestaurant);
   if (!restaurant) return;
-  
+
   const tbody = document.getElementById('menuTableBody');
   tbody.innerHTML = '';
-  
+
   restaurant.foods.forEach((food, index) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${food.name}</td>
-      <td>${food.category}</td>
-      <td>₹${food.price}</td>
+      <td><strong>${food.name}</strong></td>
+      <td style="color:#64748b;text-transform:capitalize;">${food.category}</td>
+      <td style="font-weight:700;color:#0f172a;">₹${food.price}</td>
       <td>${food.veg ? '🥬 Veg' : '🍗 Non-Veg'}</td>
       <td>
         <span class="status-badge ${food.available ? 'available' : 'unavailable'}">
@@ -394,25 +1138,24 @@ function filterMenuItems() {
   const availabilityFilter = document.getElementById('filterAvailability').value;
   const restaurant = getRestaurant(currentRestaurant);
   if (!restaurant) return;
-  
+
   const tbody = document.getElementById('menuTableBody');
   tbody.innerHTML = '';
-  
+
   const filtered = restaurant.foods.filter(food => {
     const matchesSearch = food.name.toLowerCase().includes(searchTerm);
-    const matchesAvailability = !availabilityFilter || 
+    const matchesAvailability = !availabilityFilter ||
       (availabilityFilter === 'available' && food.available) ||
       (availabilityFilter === 'unavailable' && !food.available);
-    
     return matchesSearch && matchesAvailability;
   });
-  
-  filtered.forEach((food, index) => {
+
+  filtered.forEach((food) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${food.name}</td>
-      <td>${food.category}</td>
-      <td>₹${food.price}</td>
+      <td><strong>${food.name}</strong></td>
+      <td style="color:#64748b;text-transform:capitalize;">${food.category}</td>
+      <td style="font-weight:700;color:#0f172a;">₹${food.price}</td>
       <td>${food.veg ? '🥬 Veg' : '🍗 Non-Veg'}</td>
       <td>
         <span class="status-badge ${food.available ? 'available' : 'unavailable'}">
@@ -431,7 +1174,7 @@ function filterMenuItems() {
 function addMenuItem() {
   const restaurant = getRestaurant(currentRestaurant);
   if (!restaurant) return;
-  
+
   const newItem = {
     name: document.getElementById('itemName').value,
     category: document.getElementById('itemCategory').value,
@@ -441,10 +1184,11 @@ function addMenuItem() {
     available: document.getElementById('itemAvailable').checked,
     description: document.getElementById('itemDescription').value.trim()
   };
-  
+
   restaurant.foods.push(newItem);
   saveRestaurantData();
   document.getElementById('addItemForm').reset();
+  document.getElementById('itemAvailable').checked = true;
   showNotification('Menu item added successfully!');
   loadDashboard();
 }
@@ -452,13 +1196,13 @@ function addMenuItem() {
 function openEditModal(index) {
   const restaurant = getRestaurant(currentRestaurant);
   const food = restaurant.foods[index];
-  
+
   document.getElementById('editItemId').value = index;
   document.getElementById('editItemName').value = food.name;
   document.getElementById('editItemPrice').value = food.price;
   document.getElementById('editItemType').value = food.veg ? 'veg' : 'non-veg';
   document.getElementById('editItemAvailable').checked = food.available;
-  
+
   document.getElementById('editModal').style.display = 'flex';
 }
 
@@ -469,12 +1213,12 @@ function closeEditModal() {
 function updateMenuItem() {
   const restaurant = getRestaurant(currentRestaurant);
   const index = parseInt(document.getElementById('editItemId').value);
-  
+
   restaurant.foods[index].name = document.getElementById('editItemName').value;
   restaurant.foods[index].price = parseInt(document.getElementById('editItemPrice').value);
   restaurant.foods[index].veg = document.getElementById('editItemType').value === 'veg';
   restaurant.foods[index].available = document.getElementById('editItemAvailable').checked;
-  
+
   saveRestaurantData();
   closeEditModal();
   showNotification('Menu item updated!');
@@ -535,7 +1279,7 @@ function loadOrdersList() {
   const orders = JSON.parse(localStorage.getItem('foodifyOrders') || '[]');
 
   if (!orders.length) {
-    container.innerHTML = '<p class="no-orders">No orders yet.</p>';
+    container.innerHTML = '<p class="no-orders">📦 No orders yet.</p>';
     return;
   }
 
@@ -549,10 +1293,10 @@ function loadOrdersList() {
         <span class="order-status-badge">${order.status || 'confirmed'}</span>
       </div>
       <div class="order-items-preview">
-        ${(order.items || []).map(item => `<p>${item.name} x${item.qty}</p>`).join('')}
+        ${(order.items || []).map(item => `<p>• ${item.name} ×${item.qty}</p>`).join('')}
       </div>
       <div class="order-footer">
-        <span>Rs ${order.total || 0}</span>
+        <span>₹${order.total || 0}</span>
         <span>${order.timestamp ? new Date(order.timestamp).toLocaleString() : ''}</span>
       </div>
     </div>
@@ -561,61 +1305,5 @@ function loadOrdersList() {
 
 window.addEventListener('load', initAdminPanel);
 </script>
-
-<style>
-.admin-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 12px;
-  padding: 30px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.status-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.status-badge.available {
-  background: #52C41A;
-  color: white;
-}
-
-.status-badge.unavailable {
-  background: #FF4D3D;
-  color: white;
-}
-</style>
-
 </body>
 </html>

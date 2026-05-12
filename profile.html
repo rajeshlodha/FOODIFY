@@ -5,6 +5,747 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Profile - FOODIFY</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* ===== PROFILE PAGE REDESIGN ===== */
+.profile-page {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+}
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  background: linear-gradient(160deg, #1a0500 0%, #2d0a00 60%, #3d1200 100%);
+  border-radius: 20px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(255, 77, 61, 0.25);
+  position: sticky;
+  top: 100px;
+}
+
+.profile-avatar-section {
+  padding: 32px 24px 24px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.profile-avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF4D3D 0%, #ff8a00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 14px;
+  box-shadow: 0 4px 16px rgba(255, 77, 61, 0.4);
+  letter-spacing: -1px;
+}
+
+.profile-avatar-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.profile-avatar-email {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px 20px;
+  gap: 4px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  transition: all 0.25s ease;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+.menu-item-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+}
+
+.menu-item.active {
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 77, 61, 0.35);
+  font-weight: 600;
+}
+
+/* Content Area */
+.profile-content {
+  background: white;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  min-height: 500px;
+}
+
+.profile-tab {
+  display: none;
+}
+
+.profile-tab.active {
+  display: block;
+}
+
+.profile-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.profile-tab-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 77, 61, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.profile-tab-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.profile-tab-header p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #999;
+}
+
+/* Account Form */
+.profile-form-card {
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #f0f0f0;
+}
+
+.profile-form {
+  max-width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid #ebebeb;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #FF4D3D;
+  box-shadow: 0 0 0 4px rgba(255, 77, 61, 0.1);
+}
+
+.save-btn {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(255, 77, 61, 0.3);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 77, 61, 0.4);
+}
+
+.add-btn {
+  padding: 12px 24px;
+  background: white;
+  color: #FF4D3D;
+  border: 2px solid #FF4D3D;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.25s ease;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-btn:hover {
+  background: #FF4D3D;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 77, 61, 0.3);
+}
+
+/* Address Cards */
+.addresses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 8px;
+}
+
+.address-card {
+  border: 2px solid #ebebeb;
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.address-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #ebebeb;
+  transition: background 0.3s ease;
+}
+
+.address-card.default::before {
+  background: linear-gradient(180deg, #FF4D3D, #E63946);
+}
+
+.address-card.default {
+  border-color: rgba(255, 77, 61, 0.25);
+  background: rgba(255, 77, 61, 0.02);
+}
+
+.address-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.address-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #FF4D3D;
+  background: rgba(255, 77, 61, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.default-badge {
+  background: linear-gradient(135deg, #FF4D3D, #E63946);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.address-text {
+  margin: 8px 0;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: 4px;
+}
+
+.landmark {
+  font-size: 12px;
+  color: #888;
+  margin: 4px 0;
+  padding-left: 4px;
+}
+
+.phone {
+  font-size: 13px;
+  color: #666;
+  padding-left: 4px;
+  margin: 4px 0;
+}
+
+.address-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-small {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid #FF4D3D;
+  background: white;
+  color: #FF4D3D;
+}
+
+.btn-small:hover {
+  background: #FF4D3D;
+  color: white;
+}
+
+.btn-small.btn-danger {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+  background: white;
+}
+
+.btn-small.btn-danger:hover {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* Order Cards */
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.order-card {
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 20px;
+  background: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.order-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.order-header h4 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.order-date {
+  font-size: 11px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.restaurant {
+  font-weight: 600;
+  margin: 6px 0 10px;
+  color: #FF4D3D;
+  font-size: 13px;
+}
+
+.order-items {
+  font-size: 13px;
+  color: #777;
+  margin: 10px 0;
+  line-height: 1.5;
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.amount {
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+/* Favorites Grid */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.favorite-card {
+  background: white;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.favorite-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+}
+
+.favorite-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.favorite-card-body {
+  padding: 14px;
+}
+
+.favorite-card h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.favorite-card p {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #888;
+}
+
+.favorite-card .rating {
+  font-weight: 700;
+  font-size: 13px;
+  color: #FF4D3D;
+  margin: 0 0 12px;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  background: linear-gradient(135deg, #FF4D3D 0%, #E63946 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Payment Cards */
+.payments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.payment-card {
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 22px;
+  background: linear-gradient(135deg, #1a0500 0%, #2d0a00 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.payment-card::after {
+  content: '◎';
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-size: 80px;
+  color: rgba(255,255,255,0.04);
+}
+
+.payment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.payment-type {
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 16px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.payment-details {
+  color: white;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+
+.payment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.payment-actions .btn-small {
+  border-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8);
+  background: transparent;
+}
+
+.payment-actions .btn-small:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-color: rgba(255,255,255,0.5);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #bbb;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.empty-state p {
+  font-size: 15px;
+  color: #aaa;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.modal-close {
+  background: #f5f5f5;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #FF4D3D;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-sidebar {
+    position: static;
+    border-radius: 16px;
+  }
+
+  .profile-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    padding: 20px;
+  }
+
+  .profile-avatar-circle {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .profile-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .menu-item {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
+  .menu-item-label {
+    display: none;
+  }
+
+  .profile-content {
+    padding: 24px 20px;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -35,134 +776,179 @@
 
 <section class="profile-page">
 <div class="profile-container">
-<div class="profile-sidebar">
-<div class="profile-menu">
-<button class="menu-item active" data-tab="account">Account Details</button>
-<button class="menu-item" data-tab="addresses">Saved Addresses</button>
-<button class="menu-item" data-tab="orders">Previous Orders</button>
-<button class="menu-item" data-tab="favorites">Favorite Restaurants</button>
-<button class="menu-item" data-tab="payments">Payment Methods</button>
-</div>
-</div>
+  <div class="profile-sidebar">
+    <div class="profile-avatar-section">
+      <div class="profile-avatar-circle" id="avatarInitials">U</div>
+      <div>
+        <p class="profile-avatar-name" id="sidebarName">Your Name</p>
+        <p class="profile-avatar-email" id="sidebarEmail">your@email.com</p>
+      </div>
+    </div>
+    <div class="profile-menu">
+      <button class="menu-item active" data-tab="account">
+        <span class="menu-item-icon">👤</span>
+        <span class="menu-item-label">Account Details</span>
+      </button>
+      <button class="menu-item" data-tab="addresses">
+        <span class="menu-item-icon">📍</span>
+        <span class="menu-item-label">Saved Addresses</span>
+      </button>
+      <button class="menu-item" data-tab="orders">
+        <span class="menu-item-icon">🧾</span>
+        <span class="menu-item-label">Previous Orders</span>
+      </button>
+      <button class="menu-item" data-tab="favorites">
+        <span class="menu-item-icon">❤️</span>
+        <span class="menu-item-label">Favorites</span>
+      </button>
+      <button class="menu-item" data-tab="payments">
+        <span class="menu-item-icon">💳</span>
+        <span class="menu-item-label">Payment Methods</span>
+      </button>
+    </div>
+  </div>
 
-<div class="profile-content">
-<!-- Account Tab -->
-<div id="accountTab" class="profile-tab active">
-<h2>Account Details</h2>
-<form id="accountForm" class="profile-form">
-<div class="form-group">
-<label>Full Name</label>
-<input type="text" id="fullName" placeholder="Enter your full name">
-</div>
-<div class="form-group">
-<label>Email</label>
-<input type="email" id="email" placeholder="Enter your email">
-</div>
-<div class="form-group">
-<label>Phone Number</label>
-<input type="tel" id="phone" placeholder="Enter your phone number">
-</div>
-<button type="submit" class="save-btn">Save Changes</button>
-</form>
-</div>
+  <div class="profile-content">
+    <!-- Account Tab -->
+    <div id="accountTab" class="profile-tab active">
+      <div class="profile-tab-header">
+        <div class="profile-tab-header-icon">👤</div>
+        <div>
+          <h2>Account Details</h2>
+          <p>Manage your personal information</p>
+        </div>
+      </div>
+      <div class="profile-form-card">
+        <form id="accountForm" class="profile-form">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number">
+          </div>
+          <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+      </div>
+    </div>
 
-<!-- Addresses Tab -->
-<div id="addressesTab" class="profile-tab">
-<h2>Saved Addresses</h2>
-<div id="addressesList" class="addresses-list">
-<!-- Addresses will be populated here -->
-</div>
-<button id="addAddressBtn" class="add-btn">+ Add New Address</button>
+    <!-- Addresses Tab -->
+    <div id="addressesTab" class="profile-tab">
+      <div class="profile-tab-header">
+        <div class="profile-tab-header-icon">📍</div>
+        <div>
+          <h2>Saved Addresses</h2>
+          <p>Manage your delivery locations</p>
+        </div>
+      </div>
+      <div id="addressesList" class="addresses-list"></div>
+      <button id="addAddressBtn" class="add-btn">+ Add New Address</button>
 
-<div id="addressFormModal" class="modal" style="display:none;">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Add New Address</h3>
-<button class="modal-close" onclick="closeAddressModal()">✕</button>
-</div>
-<form id="addressForm" class="address-form">
-<div class="form-group">
-<label>Address Type</label>
-<select id="addressType" required>
-<option value="">Select Type</option>
-<option value="home">Home</option>
-<option value="work">Work</option>
-<option value="other">Other</option>
-</select>
-</div>
-<div class="form-group">
-<label>Full Address</label>
-<textarea id="fullAddress" placeholder="Enter complete address" required></textarea>
-</div>
-<div class="form-group">
-<label>Landmark (Optional)</label>
-<input type="text" id="landmark" placeholder="Nearby landmark">
-</div>
-<div class="form-group">
-<label>Phone Number</label>
-<input type="tel" id="addressPhone" placeholder="Phone number" required>
-</div>
-<div class="form-group">
-<label>
-<input type="checkbox" id="setDefault"> Set as default address
-</label>
-</div>
-<button type="submit" class="save-btn">Save Address</button>
-</form>
-</div>
-</div>
-</div>
+      <div id="addressFormModal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Add New Address</h3>
+            <button class="modal-close" onclick="closeAddressModal()">✕</button>
+          </div>
+          <form id="addressForm" class="address-form">
+            <div class="form-group">
+              <label>Address Type</label>
+              <select id="addressType" required>
+                <option value="">Select Type</option>
+                <option value="home">🏠 Home</option>
+                <option value="work">🏢 Work</option>
+                <option value="other">📌 Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Full Address</label>
+              <textarea id="fullAddress" placeholder="Enter complete address" required style="min-height:90px;resize:vertical;"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Landmark (Optional)</label>
+              <input type="text" id="landmark" placeholder="Nearby landmark">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="addressPhone" placeholder="Phone number" required>
+            </div>
+            <div class="form-group" style="display:flex;align-items:center;gap:10px;">
+              <input type="checkbox" id="setDefault" style="width:auto;margin:0;">
+              <label style="margin:0;font-weight:500;text-transform:none;letter-spacing:0;font-size:14px;cursor:pointer;" for="setDefault">Set as default address</label>
+            </div>
+            <button type="submit" class="save-btn" style="width:100%;margin-top:4px;">Save Address</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-<!-- Orders Tab -->
-<div id="ordersTab" class="profile-tab">
-<h2>Previous Orders</h2>
-<div id="ordersList" class="orders-list">
-<!-- Previous orders will be populated here -->
-</div>
-</div>
+    <!-- Orders Tab -->
+    <div id="ordersTab" class="profile-tab">
+      <div class="profile-tab-header">
+        <div class="profile-tab-header-icon">🧾</div>
+        <div>
+          <h2>Previous Orders</h2>
+          <p>Your order history</p>
+        </div>
+      </div>
+      <div id="ordersList" class="orders-list"></div>
+    </div>
 
-<!-- Favorites Tab -->
-<div id="favoritesTab" class="profile-tab">
-<h2>Favorite Restaurants</h2>
-<div id="favoritesList" class="favorites-grid">
-<!-- Favorite restaurants will be populated here -->
-</div>
-</div>
+    <!-- Favorites Tab -->
+    <div id="favoritesTab" class="profile-tab">
+      <div class="profile-tab-header">
+        <div class="profile-tab-header-icon">❤️</div>
+        <div>
+          <h2>Favorite Restaurants</h2>
+          <p>Your saved restaurants</p>
+        </div>
+      </div>
+      <div id="favoritesList" class="favorites-grid"></div>
+    </div>
 
-<!-- Payments Tab -->
-<div id="paymentsTab" class="profile-tab">
-<h2>Payment Methods</h2>
-<div id="paymentsList" class="payments-list">
-<!-- Payment methods will be populated here -->
-</div>
-<button id="addPaymentBtn" class="add-btn">+ Add Payment Method</button>
+    <!-- Payments Tab -->
+    <div id="paymentsTab" class="profile-tab">
+      <div class="profile-tab-header">
+        <div class="profile-tab-header-icon">💳</div>
+        <div>
+          <h2>Payment Methods</h2>
+          <p>Manage your saved payment options</p>
+        </div>
+      </div>
+      <div id="paymentsList" class="payments-list"></div>
+      <button id="addPaymentBtn" class="add-btn">+ Add Payment Method</button>
 
-<div id="paymentFormModal" class="modal" style="display:none;">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Add Payment Method</h3>
-<button class="modal-close" onclick="closePaymentModal()">x</button>
-</div>
-<form id="paymentForm" class="address-form">
-<div class="form-group">
-<label>Payment Type</label>
-<select id="paymentType" required>
-<option value="">Select Type</option>
-<option value="card">Card</option>
-<option value="upi">UPI</option>
-<option value="wallet">Wallet</option>
-</select>
-</div>
-<div class="form-group">
-<label>Card Number / UPI / Wallet ID</label>
-<input type="text" id="paymentValue" placeholder="Enter payment detail" required>
-</div>
-<button type="submit" class="save-btn">Save Payment Method</button>
-</form>
-</div>
-</div>
-</div>
-</div>
+      <div id="paymentFormModal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Add Payment Method</h3>
+            <button class="modal-close" onclick="closePaymentModal()">✕</button>
+          </div>
+          <form id="paymentForm" class="address-form">
+            <div class="form-group">
+              <label>Payment Type</label>
+              <select id="paymentType" required>
+                <option value="">Select Type</option>
+                <option value="card">💳 Card</option>
+                <option value="upi">📱 UPI</option>
+                <option value="wallet">👛 Wallet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Card Number / UPI ID / Wallet ID</label>
+              <input type="text" id="paymentValue" placeholder="Enter payment detail" required>
+            </div>
+            <button type="submit" class="save-btn" style="width:100%;margin-top:4px;">Save Payment Method</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
@@ -171,8 +957,7 @@
 <h3>Your Cart</h3>
 <button class="close-cart" onclick="toggleCart()">✕</button>
 </div>
-<ul id="cartItems">
-</ul>
+<ul id="cartItems"></ul>
 <p>Total: ₹<span id="total">0</span></p>
 <button onclick="checkout()">Checkout</button>
 <button onclick="clearCart()">Clear Cart</button>
@@ -199,27 +984,33 @@ function saveProfile() {
   localStorage.setItem('userProfile', JSON.stringify(userProfile));
 }
 
+function updateSidebarInfo() {
+  const name = userProfile.name || 'Your Name';
+  const email = userProfile.email || 'your@email.com';
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarEmail').textContent = email;
+  const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
+  document.getElementById('avatarInitials').textContent = initials;
+}
+
 function initProfilePage() {
-  // Setup tab switching
   document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', switchTab);
   });
-  
-  // Setup form submissions
+
   document.getElementById('accountForm').addEventListener('submit', saveAccountDetails);
   document.getElementById('addressForm').addEventListener('submit', saveAddress);
   document.getElementById('addAddressBtn').addEventListener('click', openAddressModal);
   document.getElementById('paymentForm').addEventListener('submit', savePaymentMethod);
   document.getElementById('addPaymentBtn').addEventListener('click', openPaymentModal);
-  
-  // Load profile data
+
   loadProfileData();
   displayAddresses();
   displayPreviousOrders();
   displayFavorites();
   displayPaymentMethods();
-  
-  // Setup logout button
+  updateSidebarInfo();
+
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.onclick = () => {
@@ -232,17 +1023,15 @@ function initProfilePage() {
 }
 
 function switchTab(e) {
-  const tabName = e.target.dataset.tab;
-  
-  document.querySelectorAll('.profile-tab').forEach(tab => {
-    tab.classList.remove('active');
-  });
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.classList.remove('active');
-  });
-  
+  const btn = e.target.closest('.menu-item');
+  if (!btn) return;
+  const tabName = btn.dataset.tab;
+
+  document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+
   document.getElementById(tabName + 'Tab').classList.add('active');
-  e.target.classList.add('active');
+  btn.classList.add('active');
 }
 
 function loadProfileData() {
@@ -253,12 +1042,11 @@ function loadProfileData() {
 
 function saveAccountDetails(e) {
   e.preventDefault();
-  
   userProfile.name = document.getElementById('fullName').value;
   userProfile.email = document.getElementById('email').value;
   userProfile.phone = document.getElementById('phone').value;
-  
   saveProfile();
+  updateSidebarInfo();
   showNotification('Profile updated successfully!');
 }
 
@@ -273,7 +1061,6 @@ function closeAddressModal() {
 
 function saveAddress(e) {
   e.preventDefault();
-  
   const address = {
     id: Date.now(),
     type: document.getElementById('addressType').value,
@@ -282,14 +1069,11 @@ function saveAddress(e) {
     phone: document.getElementById('addressPhone').value,
     isDefault: document.getElementById('setDefault').checked
   };
-  
   if (address.isDefault) {
     userProfile.addresses.forEach(a => a.isDefault = false);
   }
-  
   userProfile.addresses.push(address);
   userProfile.defaultAddress = address.id;
-  
   saveProfile();
   closeAddressModal();
   displayAddresses();
@@ -305,41 +1089,39 @@ function deleteAddress(id) {
   }
 }
 
+const addressTypeIcons = { home: '🏠', work: '🏢', other: '📌' };
+
 function displayAddresses() {
   const container = document.getElementById('addressesList');
-  
   if (userProfile.addresses.length === 0) {
-    container.innerHTML = '<p class="empty-state">No saved addresses yet. Add one to get started!</p>';
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">📍</span><p>No saved addresses yet. Add one to get started!</p></div>';
     return;
   }
-  
   let html = '';
   userProfile.addresses.forEach(address => {
+    const icon = addressTypeIcons[address.type] || '📌';
     html += `
       <div class="address-card ${address.isDefault ? 'default' : ''}">
         <div class="address-header">
-          <h4>${address.type.toUpperCase()}</h4>
+          <span class="address-type-badge">${icon} ${address.type.toUpperCase()}</span>
           ${address.isDefault ? '<span class="default-badge">Default</span>' : ''}
         </div>
         <p class="address-text">${address.fullAddress}</p>
-        ${address.landmark ? `<p class="landmark">Landmark: ${address.landmark}</p>` : ''}
+        ${address.landmark ? `<p class="landmark">📌 ${address.landmark}</p>` : ''}
         <p class="phone">📞 ${address.phone}</p>
         <div class="address-actions">
-          <button onclick="setDefaultAddress(${address.id})" class="btn-small">Set as Default</button>
+          <button onclick="setDefaultAddress(${address.id})" class="btn-small">Set Default</button>
           <button onclick="deleteAddress(${address.id})" class="btn-small btn-danger">Delete</button>
         </div>
       </div>
     `;
   });
-  
   container.innerHTML = html;
 }
 
 function setDefaultAddress(id) {
   userProfile.defaultAddress = id;
-  userProfile.addresses.forEach(a => {
-    a.isDefault = a.id === id;
-  });
+  userProfile.addresses.forEach(a => { a.isDefault = a.id === id; });
   saveProfile();
   displayAddresses();
   showNotification('Default address updated!');
@@ -349,12 +1131,12 @@ function displayPreviousOrders() {
   const container = document.getElementById('ordersList');
   const foodifyOrders = JSON.parse(localStorage.getItem('foodifyOrders') || '[]');
   const orders = userProfile.previousOrders.length ? userProfile.previousOrders : foodifyOrders;
-  
+
   if (!orders || orders.length === 0) {
-    container.innerHTML = '<p class="empty-state">No previous orders yet. Start ordering now!</p>';
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">🧾</span><p>No previous orders yet. Start ordering now!</p></div>';
     return;
   }
-  
+
   let html = '';
   orders.forEach(order => {
     html += `
@@ -365,7 +1147,7 @@ function displayPreviousOrders() {
         </div>
         <p class="restaurant">🏪 ${order.restaurant}</p>
         <div class="order-items">
-          ${(order.items || []).map(item => `<span>${item.name} x${item.qty}</span>`).join(', ')}
+          ${(order.items || []).map(item => `<span>${item.name} ×${item.qty}</span>`).join(' &nbsp;·&nbsp; ')}
         </div>
         <div class="order-footer">
           <span class="amount">₹${order.total}</span>
@@ -374,19 +1156,18 @@ function displayPreviousOrders() {
       </div>
     `;
   });
-  
   container.innerHTML = html;
 }
 
 function displayFavorites() {
   const container = document.getElementById('favoritesList');
   const favorites = JSON.parse(localStorage.getItem('favorites') || '{"restaurants":[], "foods":[]}');
-  
+
   if (!favorites.restaurants || favorites.restaurants.length === 0) {
-    container.innerHTML = '<p class="empty-state">No favorite restaurants yet. Mark your favorites from the restaurants page!</p>';
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">❤️</span><p>No favorite restaurants yet. Mark your favorites from the restaurants page!</p></div>';
     return;
   }
-  
+
   let html = '';
   favorites.restaurants.forEach(restaurantId => {
     const restaurant = getRestaurant(restaurantId);
@@ -394,31 +1175,34 @@ function displayFavorites() {
       html += `
         <div class="favorite-card">
           <img src="${restaurant.image}" alt="${restaurant.name}">
-          <h4>${restaurant.name}</h4>
-          <p>${restaurant.cuisine.join(' • ')}</p>
-          <p class="rating">⭐ ${restaurant.rating}</p>
-          <a href="restaurant_detail.html?id=${restaurant.id}" class="btn-primary">View Menu</a>
+          <div class="favorite-card-body">
+            <h4>${restaurant.name}</h4>
+            <p>${restaurant.cuisine.join(' • ')}</p>
+            <p class="rating">⭐ ${restaurant.rating}</p>
+            <a href="restaurant_detail.html?id=${restaurant.id}" class="btn-primary">View Menu</a>
+          </div>
         </div>
       `;
     }
   });
-  
   container.innerHTML = html;
 }
 
+const paymentIcons = { card: '💳', upi: '📱', wallet: '👛' };
+
 function displayPaymentMethods() {
   const container = document.getElementById('paymentsList');
-  
   if (!userProfile.savedPaymentMethods || userProfile.savedPaymentMethods.length === 0) {
-    container.innerHTML = '<p class="empty-state">No saved payment methods. Add one for faster checkout!</p>';
+    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">💳</span><p>No saved payment methods. Add one for faster checkout!</p></div>';
     return;
   }
-  
+
   let html = '';
   userProfile.savedPaymentMethods.forEach((method, index) => {
+    const icon = paymentIcons[method.type] || '💳';
     html += `
       <div class="payment-card">
-        <div class="payment-type">💳 ${method.type.toUpperCase()}</div>
+        <div class="payment-type">${icon} ${method.type.toUpperCase()}</div>
         <p class="payment-details">${method.number || method.email}</p>
         <div class="payment-actions">
           <button onclick="deletePaymentMethod(${index})" class="btn-small btn-danger">Delete</button>
@@ -426,7 +1210,6 @@ function displayPaymentMethods() {
       </div>
     `;
   });
-  
   container.innerHTML = html;
 }
 
@@ -446,14 +1229,12 @@ function maskPaymentValue(value) {
 
 function savePaymentMethod(e) {
   e.preventDefault();
-
   const value = document.getElementById('paymentValue').value.trim();
   userProfile.savedPaymentMethods.push({
     type: document.getElementById('paymentType').value,
     number: maskPaymentValue(value),
     email: ''
   });
-
   saveProfile();
   closePaymentModal();
   displayPaymentMethods();
